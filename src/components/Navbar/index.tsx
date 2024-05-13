@@ -4,7 +4,7 @@ import logoKRC from '../../../public/logoKRC.png';
 
 export default function Navbar() {
   return (
-    <nav className="bg-blue-600 p-2 shadow-lg">
+    <nav className="bg-blue-600 p-2 shadow-xl">
       <div className="max-w-screen-xl mx-auto flex justify-between">
         <Image src={logoKRC} alt="KRC Logo" className="w-20" />
         <li className="flex gap-5 items-center">
