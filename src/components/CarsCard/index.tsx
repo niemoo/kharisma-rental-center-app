@@ -17,16 +17,12 @@ interface CarsCardProps {
   carPrice_24: number;
 }
 
-// const imageLoader = ({ src }: { src: any }) => {
-//   return `${src}`;
-// };
-
 export default function CarsCard({ carId, carName, carImage, carCategory, carYear, carCapacity, carTransmission, carPrice_12, carPrice_24 }: CarsCardProps) {
   console.log(carImage);
   return (
-    <div className="w-full md:flex gap-3 border border-black rounded-lg shadow-lg py-2 px-3 bg-white">
-      {/* <Image src={carImage} alt="" width={5000} height={5000} className="rounded w-full mb-5" /> */}
-      <div className="md:w-1/3 bg-red-500 rounded"></div>
+    <div className="w-full md:flex items-center gap-3 border border-black rounded-lg shadow-lg py-2 px-3 bg-white">
+      <Image src={carImage} alt="" width={5000} height={5000} className="rounded w-36 h-24 mb-5" />
+
       <div>
         <h3>{carName}</h3>
         <h4 className="text-sm text-zinc-500">

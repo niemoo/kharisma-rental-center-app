@@ -1,30 +1,15 @@
-import CarsCard from '@/components/CarsCard';
-
-async function getData() {
-  const res = await fetch('http://localhost:3001/cars');
-  const data = await res.json();
-  return data;
-}
+import Hero1 from '../../public/hero-1.jpg';
+import Image from 'next/image';
 
 export default async function Home() {
-  const carsData = await getData();
   return (
-    <main className="max-w-screen-xl mx-auto md:p-0 md:pt-5 p-5">
-      <div className="grid md:grid-cols-3 gap-5">
-        {carsData.data.map((data: any) => (
-          <CarsCard
-            key={data.id}
-            carId={data.id}
-            carName={data.name}
-            carImage={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${data.image}`} // Fixed URL format
-            carCategory={data.category_id}
-            carYear={data.year}
-            carCapacity={data.capacity}
-            carTransmission={data.transmission}
-            carPrice_12={data.price_12}
-            carPrice_24={data.price_24}
-          />
-        ))}
+    <main className="max-w-screen-xl mx-auto md:p-0 md:pt-24 p-5">
+      <div className="md:flex justify-between w-full">
+        <Image src={Hero1} alt="" width={5000} height={5000} className="h-80 w-fit rounded-xl" />
+        <div className="md:w-1/2">
+          <h3 className="text-xl font-semibold text-blue-600">Rental Mobil Solo Raya</h3>
+          <h1 className="text-6xl font-extrabold">Temukan Petualangan Baru dengan Rental Mobil yang Mudah</h1>
+        </div>
       </div>
     </main>
   );
