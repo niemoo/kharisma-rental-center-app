@@ -144,10 +144,10 @@ export default function Pemesanan() {
               <Input type="text" placeholder="Hanya bisa di daerah sekitar UMS" className="ml-4" ref={tempatAmbilRef} />
             </div>
           </div>
-          <div className="flex justify-start">
+          <div className="flex justify-end">
             <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white text-sm py-2 px-5 rounded-lg">
               <Link href=""></Link>
-              Submit
+              Pesan
             </button>
           </div>
         </form>
