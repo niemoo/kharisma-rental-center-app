@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import agyaManual1 from '../../../../public/agya-manual-1.jpg';
 import { FaUsers } from 'react-icons/fa';
 import { TbManualGearbox, Tb12Hours, Tb24Hours, TbPointFilled } from 'react-icons/tb';
 import { IoColorPaletteSharp } from 'react-icons/io5';
 import { BsFillFuelPumpFill } from 'react-icons/bs';
 import { MdMoreTime } from 'react-icons/md';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import Link from 'next/link';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
+import AddToCartButton from './AddToCartButton';
 
 async function getData(id: number) {
   const res = await fetch(`http://localhost:3001/cars/${id}`);
@@ -20,11 +20,20 @@ export default async function SpecifiedPage({ params: { id } }: { params: { id: 
   const formattedPrice12 = data.price_12.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
   const formattedPrice24 = data.price_24.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
 
-  console.log(data);
-
   return (
     <main className="max-w-screen-lg mx-auto p-5 py-5 md:px-0">
-      <div className="md:flex gap-5 ">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/mobil">Mobil</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Detail Mobil</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <div className="md:flex gap-5">
         <div className="md:w-1/2 rounded-lg p-5">
           <div className="flex items-center">
             <div className="border-l-4 border-blue-600 h-8 mr-2 rounded md:block hidden"></div>
@@ -43,9 +52,7 @@ export default async function SpecifiedPage({ params: { id } }: { params: { id: 
             </div>
           </div>
 
-          <Link href={`/mobil/${id}/pemesanan`} className="border border-black button-48">
-            <span>Pesan Mobil</span>
-          </Link>
+          <AddToCartButton carId={data.id} />
 
           <div className="">
             <h3>Spesifikasi</h3>

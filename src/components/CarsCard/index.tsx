@@ -9,7 +9,7 @@ interface CarsCardProps {
   carId: number;
   carName: string;
   carImage: any;
-  carCategory: string;
+  carCategory: number;
   carYear: string;
   carCapacity: number;
   carTransmission: string;
