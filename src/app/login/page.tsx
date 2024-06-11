@@ -36,7 +36,9 @@ export default function Login() {
 
   return (
     <div className="max-w-screen-md mx-auto">
-      <form className="w-1/2 grid gap-5 mx-auto mt-20 bg-white p-5 rounded-lg shadow-xl border border-gray-500" onSubmit={handleLogin}>
+      <form className="md:w-1/2 grid gap-5 mx-auto mt-20 bg-white p-5 rounded-lg shadow-xl border border-gray-500" onSubmit={handleLogin}>
+        <h3 className="text-xl font-semibold">Login</h3>
+        <hr className="" />
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="username">Username</Label>
           <Input required type="text" id="username" placeholder="Masukkan Username" ref={usernameRef} />
