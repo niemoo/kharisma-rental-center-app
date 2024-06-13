@@ -98,7 +98,24 @@ export default function Example() {
                   </Menu>
                 </div>
               ) : (
-                <p>lagi ga login</p>
+                <div className="md:flex gap-2 md:block hidden">
+                  <button>
+                    <Link
+                      href="/login"
+                      className={currentPath == '/login' ? 'bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium' : 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-base font-medium'}
+                    >
+                      Masuk
+                    </Link>
+                  </button>
+                  <button>
+                    <Link
+                      href="/register"
+                      className={currentPath == '/register' ? 'bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium' : 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-base font-medium'}
+                    >
+                      Daftar
+                    </Link>
+                  </button>
+                </div>
               )}
             </div>
           </div>

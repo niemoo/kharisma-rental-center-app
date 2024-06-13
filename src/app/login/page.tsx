@@ -34,6 +34,7 @@ export default function Login() {
 
       setIsLogin(true);
       localStorage.setItem('isLogin', JSON.stringify(true));
+      localStorage.setItem('userId', data.data.user.id);
       localStorage.setItem('accessToken', data.data.accessToken);
       localStorage.setItem('refreshToken', data.data.refreshToken);
       router.push('/');

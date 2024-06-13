@@ -24,17 +24,33 @@ export default function Pemesanan() {
   const jamAkhirRef = useRef<HTMLInputElement>(null);
   const tempatAmbilRef = useRef<HTMLInputElement>(null);
 
-  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    localStorage.setItem('Nama', namaRef.current?.value ?? '');
-    localStorage.setItem('Alamat', alamatRef.current?.value ?? '');
-    localStorage.setItem('Instagram', instagramRef.current?.value ?? '');
-    localStorage.setItem('Tujuan Sewa', tujuanSewaRef.current?.value ?? '');
-    localStorage.setItem('Rute', ruteRef.current?.value ?? '');
-    localStorage.setItem('Jaminan', jaminanRef.current?.value ?? '');
-    localStorage.setItem('Jam Mulai', jamMulaiRef.current?.value ?? '');
-    localStorage.setItem('Jam Akhir', jamAkhirRef.current?.value ?? '');
-    localStorage.setItem('Tempat Ambil', isInKantor ? 'Kantor KRC' : tempatAmbilRef.current?.value ?? '');
+    const res = await fetch('http://localhost:3001/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: localStorage.getItem('userId'),
+        car_id: localStorage.getItem('selectedCarId'),
+        alamat: alamatRef.current?.value,
+        instagram: instagramRef.current?.value,
+        tujuan_sewa: tujuanSewaRef.current?.value,
+        rute_perjalanan: ruteRef.current?.value,
+        jaminan: jaminanRef.current?.value,
+        jam_mulai_sewa: jamMulaiRef.current?.value,
+        jam_akhir_sewa: jamAkhirRef.current?.value,
+        tempat_ambil: tempatAmbilRef.current?.value,
+      }),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json(); // Mengonversi responsenya menjadi objek JSON
+      throw new Error(errorData?.message || 'Registration failed');
+    }
+
+    const data = await res.json();
+
+    router.push('/invoice');
   };
 
   return (
