@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import logoKRC from '../../../public/logoKRC2.png';
+import logoKRC from '../../../../public/logoKRC2.png';
 import { LoginContext } from '@/app/context/user';
 
 const navigation = [
@@ -27,6 +27,8 @@ export default function Example() {
 
   const handleLogout = () => {
     localStorage.setItem('isLogin', JSON.stringify(false));
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userId');
     setIsLogin(false);
   };
 

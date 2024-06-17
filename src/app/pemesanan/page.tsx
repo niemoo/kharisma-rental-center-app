@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useContext } from 'react';
+import { useRef, useEffect, useState, useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { LoginContext } from '@/app/context/user';
@@ -8,11 +8,20 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { CiCircleQuestion } from 'react-icons/ci';
+
+async function getData(id: number) {
+  const res = await fetch(`http://localhost:3001/cars/${id}`);
+  const data = await res.json();
+  return data;
+}
 
 export default function Pemesanan() {
   const router = useRouter();
   const { isLogin, setIsLogin } = useContext(LoginContext);
+  const [carData, setCarData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
   const [isInKantor, setIsInKantor] = useState<boolean>(false);
   const namaRef = useRef<HTMLInputElement>(null);
   const alamatRef = useRef<HTMLInputElement>(null);
@@ -24,22 +33,43 @@ export default function Pemesanan() {
   const jamAkhirRef = useRef<HTMLInputElement>(null);
   const tempatAmbilRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    // Check if user is not logged in, then redirect to login page
+    if (!isLogin) {
+      router.push('/login');
+    }
+  }, [isLogin]);
+
+  useEffect(() => {
+    const carId = localStorage.getItem('carId');
+    if (carId) {
+      getData(JSON.parse(carId))
+        .then((data) => setCarData(data.data[0]))
+        .catch((err) => setError('Failed to fetch data'));
+    } else {
+      setError('No car ID found in local storage');
+    }
+  }, []);
+
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const res = await fetch('http://localhost:3001/order', {
+    const res = await fetch('http://localhost:3001/booking', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         user_id: localStorage.getItem('userId'),
-        car_id: localStorage.getItem('selectedCarId'),
+        car_id: carData?.id,
         alamat: alamatRef.current?.value,
         instagram: instagramRef.current?.value,
         tujuan_sewa: tujuanSewaRef.current?.value,
-        rute_perjalanan: ruteRef.current?.value,
+        rute: ruteRef.current?.value,
         jaminan: jaminanRef.current?.value,
-        jam_mulai_sewa: jamMulaiRef.current?.value,
-        jam_akhir_sewa: jamAkhirRef.current?.value,
+        total_price: 10,
         tempat_ambil: tempatAmbilRef.current?.value,
+        startTime: jamMulaiRef.current?.value,
+        endTime: jamAkhirRef.current?.value,
+        start_date: localStorage.getItem('start_date'),
+        end_date: localStorage.getItem('end_date'),
       }),
     });
 
@@ -55,8 +85,6 @@ export default function Pemesanan() {
 
   return (
     <>
-      {!isLogin && router.push('/login')}
-
       <main className="max-w-screen-xl mx-auto md:mt-10 md:p-0 my-14 p-5">
         <div className="md:w-1/2 mx-auto mb-5">
           <Breadcrumb>
@@ -66,7 +94,7 @@ export default function Pemesanan() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink href={`/mobil/${localStorage.getItem('selectedCarId')}`}>Detail Mobil</BreadcrumbLink>
+                <BreadcrumbLink href={`/mobil/${carData?.id}`}>Detail Mobil</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
@@ -134,6 +162,25 @@ export default function Pemesanan() {
                   </AlertDialogContent>
                 </AlertDialog>
               </div>
+            </div>
+            <div className="grid w-full items-center gap-1.5">
+              <Label htmlFor="jaminan" className="after:content-['*'] after:ml-0.5 after:text-red-500">
+                Jam Sewa
+              </Label>
+
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Pilih Jam Sewa" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Jam Sewa</SelectLabel>
+                    <SelectItem value="1">12 Jam</SelectItem>
+                    <SelectItem value="2">24 Jam</SelectItem>
+                    <SelectItem value="3">Fullday (07.00-22.00)</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex gap-5">
               <div className="grid w-full items-center gap-1.5">

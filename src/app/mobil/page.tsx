@@ -1,4 +1,5 @@
-import CarsCard from '@/components/CarsCard';
+import CarsCard from '@/components/layout/CarsCard';
+import GetDate from '@/components/layout/GetDate';
 
 async function getData() {
   const res = await fetch('http://localhost:3001/cars');
@@ -10,6 +11,7 @@ export default async function Mobil() {
 
   return (
     <main className="max-w-screen-xl mx-auto md:p-0 md:pt-5 p-5">
+      <GetDate />
       <div className="grid md:grid-cols-3 gap-5">
         {carsData.data.map((data: any) => (
           <CarsCard

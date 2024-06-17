@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FaUsers } from 'react-icons/fa';
 import { TbManualGearbox, Tb12Hours, Tb24Hours, TbPointFilled } from 'react-icons/tb';
@@ -6,7 +9,7 @@ import { BsFillFuelPumpFill } from 'react-icons/bs';
 import { MdMoreTime } from 'react-icons/md';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
-import AddToCartButton from './AddToCartButton';
+import AddToCartButton from '@/components/layout/Button/AddToCartButton';
 
 async function getData(id: number) {
   const res = await fetch(`http://localhost:3001/cars/${id}`);
@@ -14,11 +17,26 @@ async function getData(id: number) {
   return data;
 }
 
-export default async function SpecifiedPage({ params: { id } }: { params: { id: number } }) {
-  const carData = await getData(id);
-  const data = carData.data[0];
-  const formattedPrice12 = data.price_12.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-  const formattedPrice24 = data.price_24.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+export default function SpecifiedPage({ params: { id } }: { params: { id: number } }) {
+  const [carData, setCarData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+  const formattedPrice12 = carData?.price_12?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+  const formattedPrice24 = carData?.price_12?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+
+  useEffect(() => {
+    if (id) {
+      getData(id)
+        .then((data) => setCarData(data.data[0]))
+        .catch((err) => setError('Failed to fetch data'));
+    } else {
+      setError('No car ID found in local storage');
+    }
+  }, []);
+  useEffect(() => {
+    if (carData) {
+      console.log(carData.price_12);
+    }
+  }, [carData]);
 
   return (
     <main className="max-w-screen-lg mx-auto p-5 py-5 md:px-0">
@@ -37,7 +55,7 @@ export default async function SpecifiedPage({ params: { id } }: { params: { id: 
         <div className="md:w-1/2 rounded-lg p-5">
           <div className="flex items-center">
             <div className="border-l-4 border-blue-600 h-8 mr-2 rounded md:block hidden"></div>
-            <h2 className="text-3xl font-semibold">{data.name}</h2>
+            <h2 className="text-3xl font-semibold">{carData?.name}</h2>
           </div>
           <hr className="my-5" />
           <div className="">
@@ -52,7 +70,7 @@ export default async function SpecifiedPage({ params: { id } }: { params: { id: 
             </div>
           </div>
 
-          <AddToCartButton carId={data.id} />
+          <AddToCartButton carId={carData?.id} />
 
           <div className="">
             <h3>Spesifikasi</h3>
@@ -73,16 +91,11 @@ export default async function SpecifiedPage({ params: { id } }: { params: { id: 
                 <IoColorPaletteSharp className="text-3xl" />
                 <h4>Merah</h4>
               </div>
-
-              {/* <div className="flex items-center gap-3">
-                <Tb24Hours className="text-3xl" />
-                <h4>Rp 500000</h4>
-              </div> */}
             </div>
           </div>
         </div>
         <div className="md:w-1/2 rounded-lg p-5">
-          <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${data.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
+          <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${carData?.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
         </div>
       </div>
 
