@@ -8,6 +8,10 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import logoKRC from '../../../../public/logoKRC2.png';
 import { LoginContext } from '@/app/context/user';
+import { Provider } from 'react-redux';
+// import store from '@/redux/store';
+// import { useDispatch } from 'react-redux';
+// import { authSlice } from '@/redux/slices/loginSlice';
 
 const navigation = [
   { name: 'Beranda', href: '/' },
@@ -21,18 +25,21 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Example() {
+export default function Navbar() {
   const currentPath = usePathname();
+  // const dispatch = useDispatch();
   const { isLogin, setIsLogin } = useContext(LoginContext);
 
   const handleLogout = () => {
-    localStorage.setItem('isLogin', JSON.stringify(false));
+    // dispatch(authSlice(true));
+    // localStorage.setItem('isLogin', JSON.stringify(false));
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
     setIsLogin(false);
   };
 
   return (
+    // <Provider store={store}>
     <Disclosure as="nav" className="bg-blue-600">
       {({ open }) => (
         <>
@@ -139,5 +146,6 @@ export default function Example() {
         </>
       )}
     </Disclosure>
+    // </Provider>
   );
 }

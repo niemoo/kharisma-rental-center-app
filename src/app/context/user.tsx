@@ -24,19 +24,19 @@ interface LoginContextProviderProps {
 
 // Create the context provider component
 const LoginContextProvider: React.FC<LoginContextProviderProps> = ({ children }) => {
-  // const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const storedValue = localStorage.getItem('isLogin');
-  //     const parsedValue = storedValue !== null ? JSON.parse(storedValue) : false;
-  //     setIsLogin(parsedValue);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedValue = localStorage.getItem('isLogin');
+      const parsedValue = storedValue !== null ? JSON.parse(storedValue) : false;
+      setIsLogin(parsedValue);
+    }
+  }, []);
 
-  const storedValue = localStorage.getItem('isLogin');
-  const parsedValue = storedValue !== null ? JSON.parse(storedValue) : false;
-  const [isLogin, setIsLogin] = useState<boolean>(parsedValue);
+  // const storedValue = localStorage.getItem('isLogin');
+  // const parsedValue = storedValue !== null ? JSON.parse(storedValue) : false;
+  // const [isLogin, setIsLogin] = useState<boolean>(parsedValue);
 
   return <LoginContext.Provider value={{ isLogin, setIsLogin }}>{children}</LoginContext.Provider>;
 };

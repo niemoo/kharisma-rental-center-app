@@ -17,10 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${GeistSans.className} `}>
-        <UserContextProvider>
-          <Navbar />
-          {children}
-        </UserContextProvider>
+        <Navbar />
+        {children}
       </body>
     </html>
   );
