@@ -1,14 +1,18 @@
 'use client';
 
 import Link from 'next/link';
+import { setSelectedCarId } from '@/store/authSlice';
+import { useAppDispatch } from '@/store/store';
 
 interface AddToCartButtonProps {
   carId: number;
 }
 
 export default function AddToCartButton({ carId }: AddToCartButtonProps) {
+  const dispatch = useAppDispatch();
+
   const addSelectedCar = () => {
-    localStorage.setItem('selectedCarId', carId.toString());
+    dispatch(setSelectedCarId(carId));
   };
 
   return (

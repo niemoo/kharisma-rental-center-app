@@ -7,11 +7,8 @@ import { usePathname } from 'next/navigation';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import logoKRC from '../../../../public/logoKRC2.png';
-import { LoginContext } from '@/app/context/user';
-import { Provider } from 'react-redux';
-// import store from '@/redux/store';
-// import { useDispatch } from 'react-redux';
-// import { authSlice } from '@/redux/slices/loginSlice';
+import { setAuthState } from '@/store/authSlice';
+import { useAppDispatch, useAppSelector } from '@/store/store';
 
 const navigation = [
   { name: 'Beranda', href: '/' },
@@ -27,19 +24,16 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const currentPath = usePathname();
-  // const dispatch = useDispatch();
-  const { isLogin, setIsLogin } = useContext(LoginContext);
+  const dispatch = useAppDispatch();
+  const authState = useAppSelector((state) => state.auth.authState);
 
   const handleLogout = () => {
-    // dispatch(authSlice(true));
-    // localStorage.setItem('isLogin', JSON.stringify(false));
+    dispatch(setAuthState(false));
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
-    setIsLogin(false);
   };
 
   return (
-    // <Provider store={store}>
     <Disclosure as="nav" className="bg-blue-600">
       {({ open }) => (
         <>
@@ -67,7 +61,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </div>
-              {isLogin ? (
+              {authState ? (
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <Menu as="div" className="relative ml-3">
                     <div>
@@ -146,6 +140,5 @@ export default function Navbar() {
         </>
       )}
     </Disclosure>
-    // </Provider>
   );
 }

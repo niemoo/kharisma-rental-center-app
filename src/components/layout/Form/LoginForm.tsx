@@ -1,13 +1,14 @@
 'use client';
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LoginContext } from '@/app/context/user';
+import { setAuthState, setToken } from '@/store/authSlice';
+import { useAppDispatch } from '@/store/store';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export default function LoginForm() {
   const router = useRouter();
-  const { isLogin, setIsLogin } = useContext(LoginContext);
+  const dispatch = useAppDispatch();
   const [message, setMessage] = useState<string | null>(null);
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -26,15 +27,17 @@ export default function LoginForm() {
 
       if (!res.ok) {
         const errorData = await res.json(); // Mengonversi responsenya menjadi objek JSON
-        throw new Error(errorData?.message || 'Registration failed');
+        throw new Error(errorData?.message || 'Login failed');
       }
 
       const data = await res.json();
 
-      setIsLogin(true);
-      localStorage.setItem('isLogin', JSON.stringify(true));
-      localStorage.setItem('userId', data.data.user.id);
-      localStorage.setItem('accessToken', data.data.accessToken);
+      // Simpan token ke Redux state dan local storage
+      dispatch(setToken(data.data.accessToken));
+      dispatch(setAuthState(true));
+      // localStorage.setItem('userId', data.data.user.id);
+      // localStorage.setItem('accessToken', data.data.accessToken);
+
       router.push('/');
     } catch (err) {
       setMessage((err as Error)?.message);

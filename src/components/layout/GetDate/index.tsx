@@ -1,11 +1,14 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { setTotalDay } from '@/store/authSlice';
+import { useAppDispatch } from '@/store/store';
 
 export default function GetDate() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [daysBetween, setDaysBetween] = useState<number | null>(null);
+  // const [daysBetween, setDaysBetween] = useState<number | null>(null);
+  const dispatch = useAppDispatch();
 
   const start_dateRef = useRef<HTMLInputElement>(null);
   const end_dateRef = useRef<HTMLInputElement>(null);
@@ -24,28 +27,22 @@ export default function GetDate() {
       const start = new Date(startDate);
       const end = new Date(endDate);
       const diffTime = Math.abs(end.getTime() - start.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      setDaysBetween(diffDays);
+      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      // Jika perbedaan hari adalah 0, maka set totalDays menjadi 1
+      if (diffDays == 0) {
+        diffDays = 1;
+      }
+
+      dispatch(setTotalDay(diffDays));
     } else {
-      setDaysBetween(null);
+      dispatch(setTotalDay(1));
     }
   }, [startDate, endDate]);
-
-  useEffect(() => {
-    console.log('Start Date:', startDate);
-    console.log('End Date:', endDate);
-    console.log('Days Between:', daysBetween);
-  }, [startDate, endDate, daysBetween]);
 
   return (
     <div>
       <input type="date" name="start_date" id="start_date" ref={start_dateRef} onChange={(e) => setStartDate(e.target.value)} />
       <input type="date" name="end_date" id="end_date" ref={end_dateRef} onChange={(e) => setEndDate(e.target.value)} />
-      {daysBetween !== null && (
-        <div>
-          <p>Days Between: {daysBetween}</p>
-        </div>
-      )}
     </div>
   );
 }
