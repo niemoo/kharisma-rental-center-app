@@ -1,7 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { setAuthState, setToken } from '@/store/authSlice';
+import { setIsLogin, setToken } from '@/store/appSlice';
 import { useAppDispatch } from '@/store/store';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -32,12 +32,8 @@ export default function LoginForm() {
 
       const data = await res.json();
 
-      // Simpan token ke Redux state dan local storage
       dispatch(setToken(data.data.accessToken));
-      dispatch(setAuthState(true));
-      // localStorage.setItem('userId', data.data.user.id);
-      // localStorage.setItem('accessToken', data.data.accessToken);
-
+      dispatch(setIsLogin(true));
       router.push('/');
     } catch (err) {
       setMessage((err as Error)?.message);

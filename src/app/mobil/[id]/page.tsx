@@ -9,9 +9,10 @@ import { IoColorPaletteSharp } from 'react-icons/io5';
 import { BsFillFuelPumpFill } from 'react-icons/bs';
 import { MdMoreTime } from 'react-icons/md';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
+
 import AddToCartButton from '@/components/layout/Button/AddToCartButton';
 import Navbar from '@/components/layout/Navbar';
+import MobilBreadcrumb from '@/components/layout/Breadcrumb/mobilBreadcrumb';
 
 async function getData(id: number) {
   const res = await fetch(`http://localhost:3001/cars/${id}`);
@@ -43,18 +44,8 @@ export default function SpecifiedPage({ params: { id } }: { params: { id: number
   return (
     <ReduxProvider>
       <Navbar />
+      <MobilBreadcrumb />
       <main className="max-w-screen-lg mx-auto p-5 py-5 md:px-0">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/mobil">Mobil</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Detail Mobil</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
         <div className="md:flex gap-5">
           <div className="md:w-1/2 rounded-lg p-5">
             <div className="flex items-center">

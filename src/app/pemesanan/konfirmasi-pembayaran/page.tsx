@@ -2,14 +2,14 @@
 
 import ReduxProvider from '@/store/redux-provider';
 import Navbar from '@/components/layout/Navbar';
-import InvoiceCard from '@/components/layout/InvoiceCard';
+import KonfirmasiPembayaranCard from '@/components/layout/KonfirmasiPembayaranCard';
 
-export default function Invoice() {
+export default function KonfirmasiPembayaran() {
   return (
     <ReduxProvider>
       <Navbar />
       <main className="max-w-screen-sm mx-auto md:mt-10 md:p-0 my-14 p-5">
-        <InvoiceCard />
+        <KonfirmasiPembayaranCard />
       </main>
     </ReduxProvider>
   );

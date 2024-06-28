@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { setSelectedCarId } from '@/store/authSlice';
+import { setSelectedCarId } from '@/store/appSlice';
 import { useAppDispatch } from '@/store/store';
 
 interface AddToCartButtonProps {

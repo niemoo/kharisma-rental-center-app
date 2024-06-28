@@ -1,19 +1,19 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
-import { authReducer, initializeApp } from '@/store/authSlice';
+import { appReducer, initializeApp } from '@/store/appSlice';
 import tokenMiddleware from './tokenMiddleware';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from '@/utils/storage-persist';
 
-// Persist config for the auth slice
-const authPersistConfig = {
-  key: 'auth',
+// Persist config for the app slice
+const appPersistConfig = {
+  key: 'app',
   storage,
-  whitelist: ['authState', 'token', 'totalDay', 'selectedCarId'], // Add 'token' to whitelist if you want to persist it
+  whitelist: ['isLogin', 'token', 'totalDay', 'selectedCarId', 'userFullname', 'carName', 'alamat', 'instagram', 'tujuanSewa', 'rute', 'jaminan', 'totalPrice', 'tempatAmbil', 'startTime', 'endTime', 'startDate', 'endDate'],
 };
 
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer),
+  app: persistReducer(appPersistConfig, appReducer),
 });
 
 export const store = configureStore({

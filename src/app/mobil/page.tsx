@@ -17,7 +17,6 @@ export default function Mobil() {
           throw new Error('Failed to fetch data');
         }
         const data = await res.json();
-        console.log(data); // Log the fetched data
         setCarsData(data.data); // Set the fetched data
       } catch (error) {
         console.error('Error fetching data:', error);

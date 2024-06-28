@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import logoKRC from '../../../../public/logoKRC2.png';
-import { setAuthState } from '@/store/authSlice';
+import { setIsLogin } from '@/store/appSlice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 
 const navigation = [
@@ -25,10 +25,10 @@ function classNames(...classes: string[]) {
 export default function Navbar() {
   const currentPath = usePathname();
   const dispatch = useAppDispatch();
-  const authState = useAppSelector((state) => state.auth.authState);
+  const isLogin = useAppSelector((state) => state.app.isLogin);
 
   const handleLogout = () => {
-    dispatch(setAuthState(false));
+    dispatch(setIsLogin(false));
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
   };
@@ -61,7 +61,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </div>
-              {authState ? (
+              {isLogin ? (
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <Menu as="div" className="relative ml-3">
                     <div>

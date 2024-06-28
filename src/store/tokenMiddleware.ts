@@ -1,5 +1,5 @@
 import { Middleware } from 'redux';
-import { verifyToken, initializeApp } from '@/store/authSlice';
+import { verifyToken, initializeApp } from '@/store/appSlice';
 import type { AnyAction, Dispatch } from '@reduxjs/toolkit';
 
 // Middleware untuk memverifikasi token saat inisialisasi store

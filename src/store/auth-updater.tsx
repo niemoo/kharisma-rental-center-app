@@ -1,5 +1,5 @@
 import React from 'react';
-import { setAuthState } from '@/store/authSlice';
+import { setAuthState } from '@/store/appSlice';
 import { useAppDispatch } from '@/store/store';
 const AuthUpdater = () => {
   const dispatch = useAppDispatch();

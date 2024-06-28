@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useAppSelector } from '@/store/store';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { AlertDialog, AlertDialogCancel, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { CiCircleQuestion } from 'react-icons/ci';
@@ -56,44 +56,22 @@ export default function PemesananForm() {
 
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const res = await fetch('http://localhost:3001/booking', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user_id: 1,
-        user_fullname: namaRef.current?.value,
-        car_id: carData?.id,
-        car_name: carData?.name,
-        alamat: alamatRef.current?.value,
-        instagram: instagramRef.current?.value,
-        tujuan_sewa: tujuanSewaRef.current?.value,
-        rute: ruteRef.current?.value,
-        jaminan: jaminanRef.current?.value,
-        total_price: selectedPrice, // Use state for selected price
-        tempat_ambil: isInKantor ? 'Kantor KRC' : tempatAmbilRef.current?.value,
-        start_time: jamMulaiRef.current?.value,
-        end_time: jamAkhirRef.current?.value,
-        start_date: localStorage.getItem('start_date'),
-        end_date: localStorage.getItem('end_date'),
-      }),
-    });
 
-    if (!res.ok) {
-      const errorData = await res.json(); // Mengonversi responsenya menjadi objek JSON
-      throw new Error(errorData?.message || 'Registration failed');
-    }
+    localStorage.setItem('user_id', '1');
+    localStorage.setItem('user_fullname', namaRef.current?.value ?? '');
+    localStorage.setItem('car_id', carData?.id);
+    localStorage.setItem('car_name', carData?.name);
+    localStorage.setItem('alamat', alamatRef.current?.value ?? '');
+    localStorage.setItem('instagram', instagramRef.current?.value ?? '');
+    localStorage.setItem('tujuan_sewa', tujuanSewaRef.current?.value ?? '');
+    localStorage.setItem('rute', ruteRef.current?.value ?? '');
+    localStorage.setItem('jaminan', jaminanRef.current?.value ?? '');
+    localStorage.setItem('total_price', selectedPrice ?? '');
+    localStorage.setItem('tempat_ambil', isInKantor ? 'Kantor KRC' : tempatAmbilRef.current?.value ?? '');
+    localStorage.setItem('start_time', jamMulaiRef.current?.value ?? '');
+    localStorage.setItem('end_time', jamAkhirRef.current?.value ?? '');
 
-    const response = await res.json();
-    setSnapShow(true);
-
-    snapEmbed(response.data.token, 'snap-container', {
-      onSuccess: (result: any) => {
-        console.log('success', result);
-        setSnapShow(false);
-      },
-    });
-
-    // router.push(`/invoice`);
+    router.push(`/pemesanan/konfirmasi-pembayaran`);
   };
 
   return (
