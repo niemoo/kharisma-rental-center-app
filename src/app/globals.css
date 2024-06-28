@@ -92,7 +92,7 @@
 
   .button-48 {
     appearance: none;
-    background-color: #000000;
+    background-color: #0060ce;
     width: 100%;
     /* border-width: 0; */
     box-sizing: border-box;
@@ -117,13 +117,14 @@
     touch-action: manipulation;
     vertical-align: baseline;
     white-space: nowrap;
+    border-radius: 0.75rem; /* equivalent to rounded-xl */
   }
 
   .button-48:before {
     animation: opacityFallbackOut 0.5s step-end forwards;
     backface-visibility: hidden;
     color: #000000;
-    background-color: #1ba708;
+    background-color: #185499;
     clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
     content: '';
     height: 100%;
@@ -133,6 +134,7 @@
     transform: translateZ(0);
     transition: clip-path 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), -webkit-clip-path 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     width: 100%;
+    border-radius: 0.75rem; /* same rounding for the before pseudo-element */
   }
 
   .button-48:hover:before {

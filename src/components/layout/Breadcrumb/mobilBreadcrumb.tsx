@@ -2,7 +2,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 
 export default function MobilBreadcrumb() {
   return (
-    <>
+    <div className="ml-24">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -14,6 +14,6 @@ export default function MobilBreadcrumb() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-    </>
+    </div>
   );
 }
