@@ -3,7 +3,7 @@
 import ReduxProvider from '@/store/redux-provider';
 import Hero1 from '../../public/hero-1.jpg';
 import Image from 'next/image';
-import Navbar from '@/components/layout/Navbar';
+import Navbar from '@/components/layout/Navbar/UserNavbar';
 
 export default function Home() {
   return (

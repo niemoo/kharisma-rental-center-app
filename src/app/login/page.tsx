@@ -3,7 +3,7 @@
 import ReduxProvider from '@/store/redux-provider';
 import RegisterFooter from '@/components/layout/FooterForm';
 import LoginForm from '@/components/layout/Form/LoginForm';
-import Navbar from '@/components/layout/Navbar';
+import Navbar from '@/components/layout/Navbar/UserNavbar';
 
 export default function Login() {
   return (

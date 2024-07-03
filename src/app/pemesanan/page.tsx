@@ -2,7 +2,7 @@
 
 import ReduxProvider from '@/store/redux-provider';
 import PemesananForm from '@/components/layout/Form/PemesananForm';
-import Navbar from '@/components/layout/Navbar';
+import Navbar from '@/components/layout/Navbar/UserNavbar';
 
 export default function Pemesanan() {
   return (

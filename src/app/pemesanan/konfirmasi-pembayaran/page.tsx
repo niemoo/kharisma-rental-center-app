@@ -1,7 +1,7 @@
 'use client';
 
 import ReduxProvider from '@/store/redux-provider';
-import Navbar from '@/components/layout/Navbar';
+import Navbar from '@/components/layout/Navbar/UserNavbar';
 import KonfirmasiPembayaranCard from '@/components/layout/KonfirmasiPembayaranCard';
 
 export default function KonfirmasiPembayaran() {

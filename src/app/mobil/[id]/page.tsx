@@ -2,7 +2,7 @@
 
 import ReduxProvider from '@/store/redux-provider';
 
-import Navbar from '@/components/layout/Navbar';
+import Navbar from '@/components/layout/Navbar/UserNavbar';
 import MobilBreadcrumb from '@/components/layout/Breadcrumb/mobilBreadcrumb';
 import SpecifiedMobil from '@/components/layout/SpecifiedMobil';
 

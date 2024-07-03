@@ -1,12 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import useSnap from '@/hooks/snap';
 import { setAlamat, setCarName, setEndDate, setEndTime, setInstagram, setJaminan, setRute, setSelectedCarId, setStartDate, setStartTime, setTempatAmbil, setTotalDays, setTotalPrice, setTujuanSewa, setUserFullname } from '@/store/appSlice';
 
 export default function KonfirmasiPembayaranCard() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
+  const isLogin = useAppSelector((state) => state.app.isLogin);
+  const isBook = useAppSelector((state) => state.app.isBook);
   const userFullName = useAppSelector((state) => state.app.userFullname);
   const selectedCarId = useAppSelector((state) => state.app.selectedCarId);
   const carName = useAppSelector((state) => state.app.carName);
@@ -50,7 +54,7 @@ export default function KonfirmasiPembayaranCard() {
       });
 
       if (!res.ok) {
-        const errorData = await res.json(); // Mengonversi responsenya menjadi objek JSON
+        const errorData = await res.json();
         throw new Error(errorData?.message || 'Registration failed');
       }
 
@@ -86,55 +90,68 @@ export default function KonfirmasiPembayaranCard() {
 
   return (
     <>
-      {!snapShow && (
-        <div className="p-5 border border-gray-300 rounded-lg">
-          <h3 className="text-xl font-semibold">Konfirmasi Pembayaran</h3>
-          <hr className="my-3" />
-          <div className="flex justify-between">
-            <div className="md:w-1/2 mx-auto">
-              <p>Nama Lengkap</p>
-              <p>Nama Mobil</p>
-              <p>Alamat Pemesan</p>
-              <p>Instagram</p>
-              <p>Tujuan Sewa</p>
-              <p>Rute Perjalanan</p>
-              <p>Jaminan</p>
-              <p>Tanggal Mulai Sewa</p>
-              <p>Tanggal Akhir Sewa</p>
-              <p>Jam Mulai Sewa</p>
-              <p>Jam Akhir Sewa</p>
-              <p>Tempat Pengambilan Mobil</p>
-            </div>
-            <div className="md:w-1/2 mx-auto">
-              <p>{userFullName}</p>
-              <p>{carName}</p>
-              <p>{alamat}</p>
-              <p>{instagram}</p>
-              <p>{tujuanSewa}</p>
-              <p>{rute}</p>
-              <p>{jaminan}</p>
-              <p>{startDate}</p>
-              <p>{endDate}</p>
-              <p>{startTime}</p>
-              <p>{endTime}</p>
-              <p>{tempatAmbil}</p>
-            </div>
-          </div>
-          <hr className="my-5" />
-          <div className="flex justify-between">
-            <p>Total Harga</p>
-            <p>{parseInt(totalPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
-          </div>
-          <div className="flex justify-end mt-10">
-            <button onClick={onBooking} className="bg-blue-500 hover:bg-blue-600 text-white text-sm py-2 px-5 rounded-lg">
-              Bayar
-            </button>
-          </div>
-        </div>
+      {!isLogin ? (
+        router.push('/login')
+      ) : (
+        <>
+          {!isBook ? (
+            router.push('/pemesanan')
+          ) : (
+            <>
+              {!snapShow && (
+                <div className="p-5 border border-gray-300 rounded-lg">
+                  <h3 className="text-xl font-semibold">Konfirmasi Pembayaran</h3>
+                  <hr className="my-3" />
+                  <div className="flex justify-between">
+                    <div className="md:w-1/2 mx-auto">
+                      <p>Nama Lengkap</p>
+                      <p>Nama Mobil</p>
+                      <p>Alamat Pemesan</p>
+                      <p>Instagram</p>
+                      <p>Tujuan Sewa</p>
+                      <p>Rute Perjalanan</p>
+                      <p>Jaminan</p>
+                      <p>Tanggal Mulai Sewa</p>
+                      <p>Tanggal Akhir Sewa</p>
+                      <p>Jam Mulai Sewa</p>
+                      <p>Jam Akhir Sewa</p>
+                      <p>Tempat Pengambilan Mobil</p>
+                    </div>
+                    <div className="md:w-1/2 mx-auto">
+                      <p>{userFullName}</p>
+                      <p>{carName}</p>
+                      <p>{alamat}</p>
+                      <p>{instagram}</p>
+                      <p>{tujuanSewa}</p>
+                      <p>{rute}</p>
+                      <p>{jaminan}</p>
+                      <p>{startDate}</p>
+                      <p>{endDate}</p>
+                      <p>{startTime}</p>
+                      <p>{endTime}</p>
+                      <p>{tempatAmbil}</p>
+                    </div>
+                  </div>
+                  <hr className="my-5" />
+                  <div className="flex justify-between">
+                    <p>Total Harga</p>
+                    <p>{parseInt(totalPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
+                  </div>
+                  <div className="flex justify-end mt-10">
+                    <button onClick={onBooking} className="bg-blue-500 hover:bg-blue-600 text-white text-sm py-2 px-5 rounded-lg">
+                      Bayar
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <div className="md:w-1/2 mx-auto flex justify-center">
+                <div id="snap-container"></div>
+              </div>
+            </>
+          )}
+        </>
       )}
-      <div className="md:w-1/2 mx-auto flex justify-center">
-        <div id="snap-container"></div>
-      </div>
     </>
   );
 }

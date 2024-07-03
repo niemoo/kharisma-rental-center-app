@@ -1,7 +1,7 @@
 'use client';
 
 import ReduxProvider from '@/store/redux-provider';
-import Navbar from '@/components/layout/Navbar';
+import Navbar from '@/components/layout/Navbar/UserNavbar';
 import InvoiceCard from '@/components/layout/InvoiceCard';
 
 export default function Invoice() {

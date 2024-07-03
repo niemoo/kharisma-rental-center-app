@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import ReduxProvider from '@/store/redux-provider';
-import Navbar from '@/components/layout/Navbar';
+import Navbar from '@/components/layout/Navbar/UserNavbar';
 import CarsCard from '@/components/layout/CarsCard';
 import GetDate from '@/components/layout/GetDate';
 

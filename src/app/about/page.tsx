@@ -3,7 +3,7 @@
 import ReduxProvider from '@/store/redux-provider';
 import AuthUpdater from '@/store/auth-updater';
 import AuthViewer from '@/store/auth-viewer';
-import Navbar from '@/components/layout/Navbar';
+import Navbar from '@/components/layout/Navbar/UserNavbar';
 
 export default function About() {
   return (
