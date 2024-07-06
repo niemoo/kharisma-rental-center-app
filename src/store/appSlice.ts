@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 interface AuthState {
   isLogin: boolean;
+  isAdmin: boolean;
   token: string | null;
   userId: number | null;
 }
@@ -30,8 +31,9 @@ interface IAppState extends AuthState, IFormData {}
 
 const initialState: IAppState = {
   isLogin: false,
-  token: null,
+  isAdmin: false,
   userId: null,
+  token: null,
   isBook: false,
   selectedCarId: 0,
   userFullname: '',
@@ -56,6 +58,12 @@ export const appSlice = createSlice({
   reducers: {
     setIsLogin: (state, action: PayloadAction<boolean>) => {
       state.isLogin = action.payload;
+    },
+    setIsAdmin: (state, action: PayloadAction<boolean>) => {
+      state.isAdmin = action.payload;
+    },
+    setUserId: (state, action: PayloadAction<number>) => {
+      state.userId = action.payload;
     },
     setToken: (state, action: PayloadAction<string | null>) => {
       state.token = action.payload;
@@ -131,6 +139,8 @@ export const appSlice = createSlice({
 
 export const {
   setIsLogin,
+  setIsAdmin,
+  setUserId,
   setToken,
   setTotalDays,
   setIsBook,

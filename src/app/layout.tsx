@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from 'next';
-import Navbar from '@/components/layout/Navbar/UserNavbar';
+import { GeistSans } from 'geist/font/sans';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -14,11 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        {/* <Navbar /> */}
-        {children}
-      </body>
+    <html lang="en" className={GeistSans.className}>
+      <body>{children}</body>
     </html>
   );
 }

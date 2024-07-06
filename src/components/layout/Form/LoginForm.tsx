@@ -1,7 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { setIsLogin, setToken } from '@/store/appSlice';
+import { setIsLogin, setUserId } from '@/store/appSlice';
 import { useAppDispatch } from '@/store/store';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -26,13 +26,12 @@ export default function LoginForm() {
       });
 
       if (!res.ok) {
-        const errorData = await res.json(); // Mengonversi responsenya menjadi objek JSON
+        const errorData = await res.json();
         throw new Error(errorData?.message || 'Login failed');
       }
 
       const data = await res.json();
-
-      dispatch(setToken(data.data.accessToken));
+      dispatch(setUserId(data.data.user.id));
       dispatch(setIsLogin(true));
       router.push('/');
     } catch (err) {

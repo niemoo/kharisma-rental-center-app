@@ -9,7 +9,28 @@ import storage from '@/utils/storage-persist';
 const appPersistConfig = {
   key: 'app',
   storage,
-  whitelist: ['isLogin', 'token', 'totalDays', 'isBook', 'selectedCarId', 'userFullname', 'carName', 'alamat', 'instagram', 'tujuanSewa', 'rute', 'jaminan', 'totalPrice', 'tempatAmbil', 'startTime', 'endTime', 'startDate', 'endDate'],
+  whitelist: [
+    'isLogin',
+    'userId',
+    'isAdmin',
+    'token',
+    'totalDays',
+    'isBook',
+    'selectedCarId',
+    'userFullname',
+    'carName',
+    'alamat',
+    'instagram',
+    'tujuanSewa',
+    'rute',
+    'jaminan',
+    'totalPrice',
+    'tempatAmbil',
+    'startTime',
+    'endTime',
+    'startDate',
+    'endDate',
+  ],
 };
 
 const rootReducer = combineReducers({

@@ -101,7 +101,7 @@ export default function Navbar() {
                   </Menu>
                 </div>
               ) : (
-                <div className="md:flex gap-2 md:block hidden">
+                <div className="md:flex gap-2 hidden">
                   <button>
                     <Link
                       href="/login"
