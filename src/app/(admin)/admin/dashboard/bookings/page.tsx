@@ -66,12 +66,11 @@ export default function AdminDashboardBookings() {
   };
 
   const handleSubmitUpdate = async () => {
-    const updateResponse = await fetch('http://localhost:3001/payment/update-status', {
+    const updateResponse = await fetch(`http://localhost:3001/payment/update-status/${selectedBooking}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         status: paymentStatus,
-        booking_id: selectedBooking,
       }),
     });
 
@@ -149,7 +148,6 @@ export default function AdminDashboardBookings() {
                           {selectedBooking && (
                             <div className="grid gap-2 mb-4 mt-5">
                               <Label className="block text-gray-700">Status Pembayaran</Label>
-                              {/* <Input type="text" placeholder={selectedBooking.payment_status} /> */}
                               <Select onValueChange={(value) => setPaymentStatus(value)} required>
                                 <SelectTrigger className="w-full">
                                   <SelectValue placeholder="Pilih Status Pembayaran" />
@@ -161,6 +159,8 @@ export default function AdminDashboardBookings() {
                                     <SelectItem value="Selesai">Selesai</SelectItem>
                                     <SelectItem value="Sedang Proses Penyewaan">Sedang Proses Penyewaan</SelectItem>
                                     <SelectItem value="Lunas">Lunas</SelectItem>
+                                    <SelectItem value="Telah Dikonfirmasi">Telah Dikonfirmasi</SelectItem>
+                                    <SelectItem value="Menunggu Konfirmasi">Menunggu Konfirmasi</SelectItem>
                                     <SelectItem value="Menunggu Pembayaran">Menunggu Pembayaran</SelectItem>
                                     <SelectItem value="Dibatalkan">Dibatalkan</SelectItem>
                                   </SelectGroup>

@@ -1,30 +1,35 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import axios from 'axios';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { MdEdit, MdDeleteForever } from 'react-icons/md';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AddCarsData from '@/components/layout/AdminCard/AddCarsData';
 
-interface Booking {
+interface Cars {
   id: number;
-  full_name: string;
-  booking_date: string;
-  alamat: string;
-  instagram: string;
-  tujuan_sewa: string;
-  rute: string;
-  jaminan: string;
-  tempat_ambil: string;
-  total_price: number;
-  start_date: string;
-  end_date: string;
-  start_time: string;
-  end_time: string;
-  amount: number;
-  payment_method: string;
-  payment_status: string;
+  nama_mobil: string;
+  kategori_mobil: string;
+  transmission: string;
+  capacity: string;
+  color: string;
+  year: string;
+  image: string;
+  price_12: number;
+  price_24: number;
+  price_fullday: number;
+}
+
+interface Category {
+  id: number;
+  name: string;
 }
 
 function formatRupiah(number: number) {
@@ -32,23 +37,38 @@ function formatRupiah(number: number) {
 }
 
 export default function AdminDashboardCars() {
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const [selectedBooking, setSelectedBooking] = useState<number | null>(null);
-  const [paymentStatus, setPaymentStatus] = useState<String | null>(null);
-  const [datas, setDatas] = useState<Booking[]>([]);
+  const [file, setFile] = useState<File>();
+  const [selectedCar, setSelectedCar] = useState<Cars | null>(null);
+  const [datas, setDatas] = useState<Cars[]>([]);
+  const [categoryData, setCategoryData] = useState<Category[]>([]);
+  const [category, setCategory] = useState<number | null>(null);
+
+  const namaMobilRef = useRef<HTMLInputElement>(null);
+  const transmissionRef = useRef<HTMLInputElement>(null);
+  const capacityRef = useRef<HTMLInputElement>(null);
+  const colorRef = useRef<HTMLInputElement>(null);
+  const yearRef = useRef<HTMLInputElement>(null);
+  const price12Ref = useRef<HTMLInputElement>(null);
+  const price24Ref = useRef<HTMLInputElement>(null);
+  const priceFulldayRef = useRef<HTMLInputElement>(null);
 
   const fetchData = async () => {
     try {
-      const historyBookingsResponse = await fetch('http://localhost:3001/dashboard/bookings/all-history', {
+      const carsResponse = await fetch('http://localhost:3001/cars', {
+        cache: 'no-cache',
+      });
+      const carsCategoryResponse = await fetch('http://localhost:3001/cars-category', {
         cache: 'no-cache',
       });
 
-      if (!historyBookingsResponse.ok) {
+      if (!carsResponse.ok || !carsCategoryResponse.ok) {
         throw new Error('Failed to fetch data');
       }
 
-      const historyBookings = await historyBookingsResponse.json();
-      setDatas(historyBookings?.data || []); // Menetapkan data ke state
+      const cars = await carsResponse.json();
+      const carsCategory = await carsCategoryResponse.json();
+      setDatas(cars?.data || []); // Menetapkan data ke state
+      setCategoryData(carsCategory?.data || []); // Menetapkan data ke state
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -57,148 +77,215 @@ export default function AdminDashboardCars() {
   useEffect(() => {
     fetchData();
   }, []);
-  useEffect(() => {
-    console.log(paymentStatus);
-  }, [paymentStatus]);
 
-  const handleEditClick = (booking: Booking) => {
-    setSelectedBooking(booking.id);
+  const handleEditClick = (car: Cars) => {
+    setSelectedCar(car);
+  };
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
   };
 
   const handleSubmitUpdate = async () => {
-    const updateResponse = await fetch('http://localhost:3001/payment/update-status', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        status: paymentStatus,
-        booking_id: selectedBooking,
-      }),
-    });
+    const formData = new FormData();
+    formData.append('category_id', String(category));
+    formData.append('name', namaMobilRef.current?.value || '');
+    formData.append('transmission', transmissionRef.current?.value || '');
+    formData.append('capacity', capacityRef.current?.value || '');
+    formData.append('color', colorRef.current?.value || '');
+    formData.append('year', yearRef.current?.value || '');
+    formData.append('price_12', price12Ref.current?.value || '');
+    formData.append('price_24', price24Ref.current?.value || '');
+    formData.append('price_fullday', priceFulldayRef.current?.value || '');
+    if (file) {
+      formData.append('image', file);
+    }
 
-    const response = await updateResponse.json();
-    setSelectedBooking(null);
-    window.location.reload();
+    axios
+      .put(`http://localhost:3001/admin/cars/edit/${selectedCar?.id}`, formData)
+      .then(() => {
+        toast.success('Data Berhasil Terupdate');
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      })
+      .finally(() => {
+        setSelectedCar(null);
+        window.location.reload();
+      });
   };
 
   const handleDelete = async () => {
-    const deleteResponse = await fetch(`http://localhost:3001/bookings/${selectedBooking}`, {
-      method: 'DELETE',
-    });
-
-    const response = await deleteResponse.json();
-    setSelectedBooking(null);
-    window.location.reload();
+    if (selectedCar) {
+      axios
+        .delete(`http://localhost:3001/cars/${selectedCar.id}`)
+        .then(() => {
+          toast.success('Data Berhasil Dihapus');
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        })
+        .finally(() => {
+          setSelectedCar(null);
+          window.location.reload();
+        });
+    }
   };
 
   return (
-    <main className="bg-slate-100 w-full py-10 md:px-20 px-5 h-full overflow-auto">
-      <h2 className="text-2xl text-slate-800 font-semibold underline underline-offset-8">Halo, Admin!</h2>
+    <>
+      <ToastContainer />
+      <main className="bg-slate-100 w-full py-10 md:px-20 px-5 h-full overflow-auto">
+        <h2 className="text-2xl text-slate-800 font-semibold underline underline-offset-8">Halo, Admin!</h2>
 
-      <div className="bg-white rounded-lg border border-blue-300 mt-20">
-        <p className="py-3 px-2 font-semibold">Riwayat Penyewaan</p>
-        <Table className="table-auto w-full border-collapse rounded-b-lg overflow-hidden">
-          <TableHeader>
-            <TableRow className="bg-blue-500">
-              <TableHead className="px-3 py-2 border text-white">No Booking</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Nama Pemesan</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Tempat Pengambilan</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Alamat Pemesan</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Instagram</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Tujuan Sewa</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Rute Sewa</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Jaminan Sewa</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Tanggal Sewa</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Jam Mulai</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Jam Kembali</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Total Tagihan</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Terbayar</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Metode Pembayaran</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Status</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Tanggal Pesan</TableHead>
-              <TableHead className="px-3 py-2 border text-white">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {datas.map((booking: Booking) => (
-              <TableRow key={booking.id} className="odd:bg-white even:bg-slate-200">
-                <TableCell className="px-3 py-2 border">{booking.id}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.full_name}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.tempat_ambil}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.alamat}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.instagram}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.tujuan_sewa}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.rute}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.jaminan}</TableCell>
-                <TableCell className="px-3 py-2 border">{`${new Date(booking.start_date).toLocaleDateString()} - ${new Date(booking.end_date).toLocaleDateString()}`}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.start_time}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.end_time}</TableCell>
-                <TableCell className="px-3 py-2 border">{formatRupiah(booking.total_price)}</TableCell>
-                <TableCell className="px-3 py-2 border">{formatRupiah(booking.amount)}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.payment_method}</TableCell>
-                <TableCell className="px-3 py-2 border">{booking.payment_status}</TableCell>
-                <TableCell className="px-3 py-2 border">{`${new Date(booking.booking_date).toLocaleDateString()}`}</TableCell>
-                <TableCell className="px-3 py-2 border text-center">
-                  <AlertDialog>
-                    <AlertDialogTrigger onClick={() => handleEditClick(booking)}>
-                      <MdEdit className="text-3xl text-white bg-green-500 hover:bg-green-600 p-1 rounded" />
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>Update Status Pembayaran</AlertDialogTitle>
-                        <AlertDialogDescription>
-                          {selectedBooking && (
-                            <div className="grid gap-2 mb-4 mt-5">
-                              <Label className="block text-gray-700">Status Pembayaran</Label>
-                              {/* <Input type="text" placeholder={selectedBooking.payment_status} /> */}
-                              <Select onValueChange={(value) => setPaymentStatus(value)} required>
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Pilih Status Pembayaran" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectLabel>Status Pembayaran</SelectLabel>
-
-                                    <SelectItem value="Selesai">Selesai</SelectItem>
-                                    <SelectItem value="Sedang Proses Penyewaan">Sedang Proses Penyewaan</SelectItem>
-                                    <SelectItem value="Lunas">Lunas</SelectItem>
-                                    <SelectItem value="Menunggu Pembayaran">Menunggu Pembayaran</SelectItem>
-                                    <SelectItem value="Dibatalkan">Dibatalkan</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
-                            </div>
-                          )}
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleSubmitUpdate}>Update</AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                  <AlertDialog>
-                    <AlertDialogTrigger onClick={() => handleEditClick(booking)}>
-                      <MdDeleteForever className="text-3xl text-zinc-100 bg-red-500 hover:bg-red-600 p-1 rounded" />
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>Hapus Data</AlertDialogTitle>
-                        <AlertDialogDescription>Apakah anda yakin ingin menghapus data ini?</AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction className="bg-blue-500 text-white px-2 py-1 rounded" onClick={handleDelete}>
-                          Continue
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                </TableCell>
+        <AddCarsData categoryData={categoryData} />
+        <div className="bg-white rounded-lg border border-blue-300 mt-10">
+          <p className="py-3 px-2 font-semibold">Data Mobil</p>
+          <Table className="table-auto w-full border-collapse rounded-b-lg overflow-hidden">
+            <TableHeader>
+              <TableRow className="bg-blue-500">
+                <TableHead className="px-3 py-2 border text-white">Id Mobil</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Nama Mobil</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Kategori Mobil</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Transmisi</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Kapasitas</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Warna</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Tahun</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Gambar</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Harga / 12 jam</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Harga / 24 jam</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Harga / Fullday</TableHead>
+                <TableHead className="px-3 py-2 border text-white">Actions</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-    </main>
+            </TableHeader>
+            <TableBody>
+              {datas.map((car: Cars) => (
+                <TableRow key={car.id} className="odd:bg-white even:bg-slate-200">
+                  <TableCell className="px-3 py-2 border">MBL-{car.id}</TableCell>
+                  <TableCell className="px-3 py-2 border">{car.nama_mobil}</TableCell>
+                  <TableCell className="px-3 py-2 border">{car.kategori_mobil}</TableCell>
+                  <TableCell className="px-3 py-2 border">{car.transmission}</TableCell>
+                  <TableCell className="px-3 py-2 border">{car.capacity}</TableCell>
+                  <TableCell className="px-3 py-2 border">{car.color}</TableCell>
+                  <TableCell className="px-3 py-2 border">{car.year}</TableCell>
+                  <TableCell className="px-3 py-2 border">
+                    <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${car.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
+                  </TableCell>
+                  <TableCell className="px-3 py-2 border">{formatRupiah(car.price_12)}</TableCell>
+                  <TableCell className="px-3 py-2 border">{formatRupiah(car.price_24)}</TableCell>
+                  <TableCell className="px-3 py-2 border">{formatRupiah(car.price_fullday)}</TableCell>
+                  <TableCell className="px-3 py-2 border text-center">
+                    <AlertDialog>
+                      <AlertDialogTrigger onClick={() => handleEditClick(car)}>
+                        <MdEdit className="text-3xl text-white bg-green-500 hover:bg-green-600 p-1 rounded" />
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Update Mobil</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            {selectedCar && (
+                              <>
+                                <hr className="mb-5" />
+                                <div className="flex items-center gap-5">
+                                  <div className="grid gap-2 mb-4 w-1/2">
+                                    <Label className="block text-zinc-900">Nama Mobil</Label>
+                                    <Input type="text" placeholder={car.nama_mobil} ref={namaMobilRef} />
+                                  </div>
+                                  <div className="grid gap-2 mb-4 w-1/2">
+                                    <Label className="block text-zinc-900">Transmisi</Label>
+                                    <Input type="text" placeholder={car.transmission} ref={transmissionRef} />
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-5">
+                                  <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                                    <Label className="block text-zinc-900">Kapasitas</Label>
+                                    <Input type="text" placeholder={car.capacity} ref={capacityRef} />
+                                  </div>
+                                  <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                                    <Label className="block text-zinc-900">Warna</Label>
+                                    <Input type="text" placeholder={car.color} ref={colorRef} />
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-5">
+                                  <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                                    <Label className="block text-zinc-900">Tahun</Label>
+                                    <Input type="text" placeholder={car.year} ref={yearRef} />
+                                  </div>
+                                  <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                                    <Label className="block text-zinc-900">Harga 12 Jam</Label>
+                                    <Input type="number" ref={price12Ref} />
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-5">
+                                  <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                                    <Label className="block text-zinc-900">Harga 24 Jam</Label>
+                                    <Input type="number" ref={price24Ref} />
+                                  </div>
+                                  <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                                    <Label className="block text-zinc-900">Harga Fullday</Label>
+                                    <Input type="number" ref={priceFulldayRef} />
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-5">
+                                  <div className="grid gap-2 mb-4 w-1/2">
+                                    <Label className="block text-zinc-900">Gambar</Label>
+                                    <input type="file" onChange={handleFile} name="file" />
+                                  </div>
+                                  <div className="grid gap-2 mb-4 w-1/2">
+                                    <Label className="block text-zinc-900">Kategori Mobil</Label>
+                                    <Select onValueChange={(value) => setCategory(Number(value))} required>
+                                      <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Pilih Category Mobil" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        <SelectGroup>
+                                          <SelectLabel>Category Mobil</SelectLabel>
+                                          {categoryData?.map((data) => (
+                                            <SelectItem key={data.id} value={String(data.id)}>
+                                              {data.name}
+                                            </SelectItem>
+                                          ))}
+                                        </SelectGroup>
+                                      </SelectContent>
+                                    </Select>
+                                  </div>
+                                </div>
+                              </>
+                            )}
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={handleSubmitUpdate}>Update</AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                    <AlertDialog>
+                      <AlertDialogTrigger onClick={() => handleEditClick(car)}>
+                        <MdDeleteForever className="text-3xl text-zinc-100 bg-red-500 hover:bg-red-600 p-1 rounded" />
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Hapus Data</AlertDialogTitle>
+                          <AlertDialogDescription>Apakah anda yakin ingin menghapus data ini?</AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction className="bg-blue-500 text-white px-2 py-1 rounded" onClick={handleDelete}>
+                            Continue
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </main>
+    </>
   );
 }

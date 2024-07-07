@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { RxDashboard } from 'react-icons/rx';
-import { FaClipboardList, FaUsers } from 'react-icons/fa';
+import { LuClipboardList, LuUsers } from 'react-icons/lu';
 import { FaCarTunnel } from 'react-icons/fa6';
 
 export default function AdminNavbar() {
@@ -30,7 +30,7 @@ export default function AdminNavbar() {
               : 'flex gap-3 items-center py-1 px-5 text-zinc-700 hover:text-blue-600 border border-transparent hover:border-r-2 hover:border-r-blue-500 transition duration-300 ease-in-out'
           }
         >
-          <FaClipboardList className="text-xl" />
+          <LuClipboardList className="text-xl" />
           <p className="font-semibold">Bookings</p>
         </Link>
         <Link
@@ -41,8 +41,8 @@ export default function AdminNavbar() {
               : 'flex gap-3 items-center py-1 px-5 text-zinc-700 hover:text-blue-600 border border-transparent hover:border-r-2 hover:border-r-blue-500 transition duration-300 ease-in-out'
           }
         >
-          <FaUsers className="text-xl" />
-          <p className="font-semibold">Users</p>
+          <LuUsers className="text-xl" />
+          <p className="font-semibold">Pengguna</p>
         </Link>
         <Link
           href="/admin/dashboard/mobil"

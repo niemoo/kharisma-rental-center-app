@@ -32,6 +32,10 @@ interface CarsBooking {
   total_bookings: number;
 }
 
+function formatRupiah(number: number) {
+  return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
+}
+
 export default async function AdminDashboard() {
   const totalCarsResponse = await fetch('http://localhost:3001/dashboard/cars-total', {
     cache: 'no-cache',
@@ -45,10 +49,10 @@ export default async function AdminDashboard() {
   const historyBookingsResponse = await fetch('http://localhost:3001/dashboard/bookings/last-history', {
     cache: 'no-cache',
   });
-  const carsResponse = await fetch('http://localhost:3001/dashboard/cars-table', {
+  const carsResponse = await fetch('http://localhost:3001/dashboard/cars/table', {
     cache: 'no-cache',
   });
-  const carsBookingResponse = await fetch('http://localhost:3001/dashboard/cars-booking-table', {
+  const carsBookingResponse = await fetch('http://localhost:3001/dashboard/cars/most-booking-table', {
     cache: 'no-cache',
   });
   const totalCars = await totalCarsResponse.json();
@@ -70,7 +74,7 @@ export default async function AdminDashboard() {
       </div>
 
       <hr className="my-10 border border-slate-300" />
-      <div className="flex gap-5">
+      <div className="md:flex gap-5">
         <div className="bg-white rounded-lg border border-blue-300 md:w-2/3">
           <p className="py-3 px-2 font-semibold">Daftar Mobil</p>
           <Table className="table-auto w-full border-collapse rounded-b-lg overflow-hidden">
@@ -94,15 +98,15 @@ export default async function AdminDashboard() {
                   <TableCell className="px-3 py-2 border">{car.transmission}</TableCell>
                   <TableCell className="px-3 py-2 border">{car.capacity}</TableCell>
                   <TableCell className="px-3 py-2 border">{car.color}</TableCell>
-                  <TableCell className="px-3 py-2 border">{car.price_12}</TableCell>
-                  <TableCell className="px-3 py-2 border">{car.price_24}</TableCell>
-                  <TableCell className="px-3 py-2 border">{car.price_fullday}</TableCell>
+                  <TableCell className="px-3 py-2 border">{formatRupiah(car.price_12)}</TableCell>
+                  <TableCell className="px-3 py-2 border">{formatRupiah(car.price_24)}</TableCell>
+                  <TableCell className="px-3 py-2 border">{formatRupiah(car.price_fullday)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </div>
-        <div className="bg-white rounded-lg border border-blue-300 md:w-2/3 h-fit">
+        <div className="bg-white rounded-lg border border-blue-300 md:w-2/3 md:mt-0 mt-10 h-fit">
           <p className="py-3 px-2 font-semibold">Total Sewa Tiap Mobil</p>
           <Table className="table-auto w-full border-collapse rounded-b-lg overflow-hidden">
             <TableHeader>
@@ -113,7 +117,7 @@ export default async function AdminDashboard() {
             </TableHeader>
             <TableBody>
               {carsBooking?.data.map((car: CarsBooking) => (
-                <TableRow className="odd:bg-white even:bg-slate-200">
+                <TableRow key={car.nama_mobil} className="odd:bg-white even:bg-slate-200">
                   <TableCell className="px-3 py-2 border">{car.nama_mobil}</TableCell>
                   <TableCell className="px-3 py-2 border">{car.total_bookings}</TableCell>
                 </TableRow>

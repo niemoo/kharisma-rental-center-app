@@ -30,16 +30,16 @@ export default function Mobil() {
   return (
     <ReduxProvider>
       <Navbar />
-      <main className="max-w-screen-xl mx-auto md:p-0 md:pt-5 p-5">
+      <main className="max-w-screen-md mx-auto md:p-0 md:pt-5 p-5">
         <GetDate />
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid gap-5 mt-10">
           {carsData?.map((data: any) => (
             <CarsCard
               key={data?.id}
               carId={data?.id}
-              carName={data?.name}
+              carName={data?.nama_mobil}
               carImage={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${data?.image}`} // Fixed URL format
-              carCategory={data?.category_id}
+              carCategory={data?.kategori_mobil}
               carYear={data?.year}
               carCapacity={data?.capacity}
               carTransmission={data?.transmission}
