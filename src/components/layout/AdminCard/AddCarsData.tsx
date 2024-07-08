@@ -66,7 +66,7 @@ export default function AddCarsData({ categoryData }: { categoryData: Category[]
     <>
       <ToastContainer />
       <AlertDialog>
-        <AlertDialogTrigger className="flex items-center border border-green-300 bg-white hover:bg-green-500 text-black hover:text-white rounded px-3 py-2 mt-20">
+        <AlertDialogTrigger className="flex items-center border border-green-300 bg-white hover:bg-green-500 text-black hover:text-white rounded px-3 py-2">
           <IoMdAdd />
           <p>Tambah Data Mobil</p>
         </AlertDialogTrigger>
