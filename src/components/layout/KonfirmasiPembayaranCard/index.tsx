@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/store';
+import { BiSolidHelpCircle } from 'react-icons/bi';
 import {
   setAlamat,
+  setBookingId,
   setCarName,
   setEndDate,
   setEndTime,
@@ -21,6 +22,8 @@ import {
   setTujuanSewa,
   setUserFullname,
 } from '@/store/appSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function KonfirmasiPembayaranCard() {
   const router = useRouter();
@@ -91,7 +94,9 @@ export default function KonfirmasiPembayaranCard() {
 
       const response = await res.json();
 
-      console.log(response);
+      dispatch(setBookingId(response.data.booking_id));
+      toast.success('Data Berhasil Terupdate');
+      router.push('/pemesanan/pembayaran');
     } catch (error) {
       console.error('Error : ', error);
     }
@@ -110,40 +115,66 @@ export default function KonfirmasiPembayaranCard() {
               <div className="p-5 border border-gray-300 rounded-lg">
                 <h3 className="text-xl font-semibold">Konfirmasi Pembayaran</h3>
                 <hr className="my-3" />
-                <div className="flex justify-between">
-                  <div className="md:w-1/2 mx-auto">
-                    <p>Nama Lengkap</p>
-                    <p>Nama Mobil</p>
-                    <p>Alamat Pemesan</p>
-                    <p>Instagram</p>
-                    <p>Tujuan Sewa</p>
-                    <p>Rute Perjalanan</p>
-                    <p>Jaminan</p>
-                    <p>Tanggal Mulai Sewa</p>
-                    <p>Tanggal Akhir Sewa</p>
-                    <p>Jam Mulai Sewa</p>
-                    <p>Jam Akhir Sewa</p>
-                    <p>Tempat Pengambilan Mobil</p>
+                <div className="grid gap-3">
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Nama Lengkap</p>
+                    <p className="font-semibold w-1/2 text-right">{userFullName}</p>
                   </div>
-                  <div className="md:w-1/2 mx-auto">
-                    <p>{userFullName}</p>
-                    <p>{carName}</p>
-                    <p>{alamat}</p>
-                    <p>{instagram}</p>
-                    <p>{tujuanSewa}</p>
-                    <p>{rute}</p>
-                    <p>{jaminan}</p>
-                    <p>{startDate}</p>
-                    <p>{endDate}</p>
-                    <p>{startTime}</p>
-                    <p>{endTime}</p>
-                    <p>{tempatAmbil}</p>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Nama Mobil</p>
+                    <p className="font-semibold w-1/2 text-right">{carName}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Alamat Pemesan</p>
+                    <p className="font-semibold w-1/2 text-right">{alamat}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Instagram</p>
+                    <p className="font-semibold w-1/2 text-right">{instagram}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Tujuan Sewa</p>
+                    <p className="font-semibold w-1/2 text-right">{tujuanSewa}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Rute Perjalanan</p>
+                    <p className="font-semibold w-1/2 text-right">{rute}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Jaminan</p>
+                    <p className="font-semibold w-1/2 text-right">{jaminan}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Tanggal Mulai Sewa</p>
+                    <p className="font-semibold w-1/2 text-right">{startDate}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Tanggal Akhir Sewa</p>
+                    <p className="font-semibold w-1/2 text-right">{endDate}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Jam Mulai Sewa</p>
+                    <p className="font-semibold w-1/2 text-right">{startTime}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Jam Akhir Sewa</p>
+                    <p className="font-semibold w-1/2 text-right">{endTime}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-semibold w-1/2">Tempat Pengambilan Mobil</p>
+                    <p className="font-semibold w-1/2 text-right">{tempatAmbil}</p>
                   </div>
                 </div>
                 <hr className="my-5" />
                 <div className="flex justify-between">
-                  <p>Total Harga</p>
-                  <p>{parseInt(totalPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
+                  <div className="grid gap-3">
+                    <p className="font-semibold">Total Harga</p>
+                    <div className="flex items-center gap-3">
+                      <BiSolidHelpCircle className="text-blue-500" />
+                      <p className="text-sm">Anda dapat membayar DP terlebih dahulu sebesar 50%</p>
+                    </div>
+                  </div>
+                  <p className="font-semibold">{parseInt(totalPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
                 </div>
                 <div className="flex justify-end mt-10">
                   <button onClick={onBooking} className="bg-blue-500 hover:bg-blue-600 text-white text-sm py-2 px-5 rounded-lg">

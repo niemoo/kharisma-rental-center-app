@@ -12,6 +12,7 @@ const appPersistConfig = {
   whitelist: [
     'isLogin',
     'userId',
+    'bookingId',
     'isAdmin',
     'token',
     'totalDays',

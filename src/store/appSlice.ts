@@ -10,6 +10,7 @@ interface AuthState {
 
 interface IFormData {
   isBook: boolean;
+  bookingId: number | null;
   selectedCarId: number;
   userFullname: string;
   carName: string;
@@ -33,6 +34,7 @@ const initialState: IAppState = {
   isLogin: false,
   isAdmin: false,
   userId: null,
+  bookingId: null,
   token: null,
   isBook: false,
   selectedCarId: 0,
@@ -64,6 +66,9 @@ export const appSlice = createSlice({
     },
     setUserId: (state, action: PayloadAction<number>) => {
       state.userId = action.payload;
+    },
+    setBookingId: (state, action: PayloadAction<number | null>) => {
+      state.bookingId = action.payload;
     },
     setToken: (state, action: PayloadAction<string | null>) => {
       state.token = action.payload;
@@ -141,6 +146,7 @@ export const {
   setIsLogin,
   setIsAdmin,
   setUserId,
+  setBookingId,
   setToken,
   setTotalDays,
   setIsBook,

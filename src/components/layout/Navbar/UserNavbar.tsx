@@ -9,11 +9,11 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import logoKRC from '../../../../public/logoKRC2.png';
 import { setIsLogin } from '@/store/appSlice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
+import { FaUserCircle } from 'react-icons/fa';
 
 const navigation = [
   { name: 'Beranda', href: '/' },
   { name: 'Mobil', href: '/mobil' },
-  { name: 'Cek Pesanan', href: '/cek-pesanan' },
   { name: 'Ketentuan', href: '/ketentuan' },
   { name: 'About', href: '/about' },
 ];
@@ -54,7 +54,7 @@ export default function Navbar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <Link key={item.name} href={item.href} className={classNames(currentPath == item.href ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium')}>
+                      <Link key={item.name} href={item.href} className={classNames(currentPath == item.href ? 'bg-blue-900 text-white' : 'text-gray-300 hover:bg-blue-900 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium')}>
                         {item.name}
                       </Link>
                     ))}
@@ -65,8 +65,10 @@ export default function Navbar() {
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <Menu as="div" className="relative ml-3">
                     <div>
-                      <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                        <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                      <Menu.Button className="relative flex rounded-full text-sm">
+                        <FaUserCircle className="text-3xl text-white hover:text-zinc-200" />
+
+                        {/* <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" /> */}
                       </Menu.Button>
                     </div>
                     <Transition
@@ -81,7 +83,7 @@ export default function Navbar() {
                       <div className="grid absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <button>
                           <Link href="#" className={classNames(currentPath == '/' ? 'bg-white hover:bg-gray-100' : 'bg-white hover:bg-gray-100', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Your Profile
+                            Dashboard
                           </Link>
                         </button>
 
