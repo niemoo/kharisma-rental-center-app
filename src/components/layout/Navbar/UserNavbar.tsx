@@ -15,7 +15,7 @@ const navigation = [
   { name: 'Beranda', href: '/' },
   { name: 'Mobil', href: '/mobil' },
   { name: 'Ketentuan', href: '/ketentuan' },
-  { name: 'About', href: '/about' },
+  { name: 'Tentang Kami', href: '/about' },
 ];
 
 function classNames(...classes: string[]) {
@@ -41,7 +41,7 @@ export default function Navbar() {
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button */}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition duration-300 ease-in-out">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
                   {open ? <XMarkIcon className="block h-6 w-6" aria-hidden="true" /> : <Bars3Icon className="block h-6 w-6" aria-hidden="true" />}
@@ -54,7 +54,11 @@ export default function Navbar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <Link key={item.name} href={item.href} className={classNames(currentPath == item.href ? 'bg-blue-900 text-white' : 'text-gray-300 hover:bg-blue-900 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium')}>
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(currentPath == item.href ? 'bg-blue-900 text-white' : 'text-gray-300 hover:bg-blue-900 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium transition duration-300 ease-in-out')}
+                      >
                         {item.name}
                       </Link>
                     ))}
@@ -83,13 +87,13 @@ export default function Navbar() {
                       <div className="grid absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <button>
                           <Link href="/dashboard" className={classNames(currentPath == '/' ? 'bg-white hover:bg-gray-100' : 'bg-white hover:bg-gray-100', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Dashboard
+                            Riwayat Penyewaan
                           </Link>
                         </button>
 
                         <button>
-                          <Link href="#" className={classNames(currentPath == '/' ? 'bg-white hover:bg-gray-100' : 'bg-white hover:bg-gray-100', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Settings
+                          <Link href="/dashboard/profil" className={classNames(currentPath == '/' ? 'bg-white hover:bg-gray-100' : 'bg-white hover:bg-gray-100', 'block px-4 py-2 text-sm text-gray-700')}>
+                            Profil
                           </Link>
                         </button>
 
@@ -107,7 +111,11 @@ export default function Navbar() {
                   <button>
                     <Link
                       href="/login"
-                      className={currentPath == '/login' ? 'bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium' : 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-base font-medium'}
+                      className={
+                        currentPath == '/login'
+                          ? 'bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium'
+                          : 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-base font-medium transition duration-300 ease-in-out'
+                      }
                     >
                       Masuk
                     </Link>
@@ -115,7 +123,11 @@ export default function Navbar() {
                   <button>
                     <Link
                       href="/register"
-                      className={currentPath == '/register' ? 'bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium' : 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-base font-medium'}
+                      className={
+                        currentPath == '/register'
+                          ? 'bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium'
+                          : 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-base font-medium transition duration-300 ease-in-out'
+                      }
                     >
                       Daftar
                     </Link>

@@ -8,8 +8,10 @@ export default function Pemesanan() {
   return (
     <ReduxProvider>
       <Navbar />
-      <main className="max-w-screen-xl mx-auto md:mt-10 md:p-0 my-14 p-5">
-        <PemesananForm />
+      <main className="bg-slate-100 md:py-14">
+        <div className="max-w-screen-xl mx-auto">
+          <PemesananForm />
+        </div>
       </main>
     </ReduxProvider>
   );

@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/store/store';
@@ -11,7 +13,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { setBookingId } from '@/store/appSlice';
 
 export default function InvoiceCard() {
+  const router = useRouter();
   const [file, setFile] = useState<File>();
+  const [method, setMethod] = useState<string | null>();
   const dispatch = useAppDispatch();
   const bookingId = useAppSelector((state) => state.app.bookingId);
 
@@ -27,6 +31,7 @@ export default function InvoiceCard() {
     e.preventDefault();
     const formData = new FormData();
     formData.append('amount', amountRef.current?.value ?? '');
+    formData.append('method', method ?? '');
     if (file) {
       formData.append('image', file);
     }
@@ -41,7 +46,7 @@ export default function InvoiceCard() {
       })
       .finally(() => {
         dispatch(setBookingId(null));
-        window.location.reload();
+        router.push('/dashboard');
       });
   };
 
@@ -73,6 +78,23 @@ export default function InvoiceCard() {
           <div className="grid gap-5 mt-5">
             <Label>Jumlah Uang yang Dibayar</Label>
             <Input type="number" ref={amountRef} required />
+          </div>
+          <div className="grid gap-5 mt-5">
+            <Label>Pilih Metode Pembayaran</Label>
+            <Select onValueChange={(value) => setMethod(value)} required>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Pilih Metode Pembayaran" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Metode Pembayaran</SelectLabel>
+
+                  <SelectItem value="BRI">BRI</SelectItem>
+                  <SelectItem value="Gopay">Gopay</SelectItem>
+                  <SelectItem value="Shopee Pay">Shopee Pay</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
           <div className="grid gap-5 mt-5">
             <Label>Upload Bukti Pembayaran</Label>

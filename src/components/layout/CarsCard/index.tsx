@@ -19,7 +19,7 @@ interface CarsCardProps {
 
 export default function CarsCard({ carId, carName, carImage, carCategory, carYear, carCapacity, carTransmission, carPrice_12, carPrice_24 }: CarsCardProps) {
   return (
-    <div className="w-full md:flex items-center gap-3 border border-cyan-500 rounded-lg shadow-lg py-2 px-3 bg-white">
+    <div className="w-full md:flex items-center gap-3 border border-cyan-500 rounded-lg shadow-xl py-2 px-3 bg-white">
       <div className="md:w-1/3 flex justify-center">
         <Image src={carImage} alt="" width={5000} height={5000} className="rounded w-fit h-24 mb-5" />
       </div>

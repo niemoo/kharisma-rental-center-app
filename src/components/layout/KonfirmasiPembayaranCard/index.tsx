@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { BiSolidHelpCircle } from 'react-icons/bi';
+import { FaCircleDot } from 'react-icons/fa6';
 import {
   setAlamat,
   setBookingId,
@@ -112,74 +113,133 @@ export default function KonfirmasiPembayaranCard() {
             router.push('/pemesanan')
           ) : (
             <>
-              <div className="p-5 border border-gray-300 rounded-lg">
-                <h3 className="text-xl font-semibold">Konfirmasi Pembayaran</h3>
-                <hr className="my-3" />
-                <div className="grid gap-3">
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Nama Lengkap</p>
-                    <p className="font-semibold w-1/2 text-right">{userFullName}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Nama Mobil</p>
-                    <p className="font-semibold w-1/2 text-right">{carName}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Alamat Pemesan</p>
-                    <p className="font-semibold w-1/2 text-right">{alamat}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Instagram</p>
-                    <p className="font-semibold w-1/2 text-right">{instagram}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Tujuan Sewa</p>
-                    <p className="font-semibold w-1/2 text-right">{tujuanSewa}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Rute Perjalanan</p>
-                    <p className="font-semibold w-1/2 text-right">{rute}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Jaminan</p>
-                    <p className="font-semibold w-1/2 text-right">{jaminan}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Tanggal Mulai Sewa</p>
-                    <p className="font-semibold w-1/2 text-right">{startDate}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Tanggal Akhir Sewa</p>
-                    <p className="font-semibold w-1/2 text-right">{endDate}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Jam Mulai Sewa</p>
-                    <p className="font-semibold w-1/2 text-right">{startTime}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Jam Akhir Sewa</p>
-                    <p className="font-semibold w-1/2 text-right">{endTime}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-semibold w-1/2">Tempat Pengambilan Mobil</p>
-                    <p className="font-semibold w-1/2 text-right">{tempatAmbil}</p>
-                  </div>
-                </div>
-                <hr className="my-5" />
-                <div className="flex justify-between">
-                  <div className="grid gap-3">
-                    <p className="font-semibold">Total Harga</p>
-                    <div className="flex items-center gap-3">
-                      <BiSolidHelpCircle className="text-blue-500" />
-                      <p className="text-sm">Anda dapat membayar DP terlebih dahulu sebesar 50%</p>
+              <div className="p-5 mb-20 bg-white border border-gray-300 rounded-lg">
+                <h3 className="text-xl font-semibold text-blue-900">Konfirmasi Pemesanan</h3>
+                <hr className="border border-r-2 border-gray-200 mt-5" />
+                <div className="md:flex">
+                  <div className="border border-transparent border-r-2 md:border-r-gray-200 md:w-2/3">
+                    <div className="grid gap-3 md:px-3 py-5 w-full">
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Nama Lengkap</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{userFullName}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Nama Mobil</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{carName}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Alamat Pemesan</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{alamat}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Instagram</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{instagram}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Tujuan Sewa</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{tujuanSewa}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Rute Perjalanan</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{rute}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Jaminan</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{jaminan}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Tanggal Mulai Sewa</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{startDate}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Tanggal Akhir Sewa</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{endDate}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Jam Mulai Sewa</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{startTime}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Jam Akhir Sewa</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{endTime}</p>
+                        </div>
+                      </div>
+                      <hr className="border border-r-2" />
+                      <div className="grid gap-1 w-full">
+                        <p className="font-semibold text-lg text-zinc-950">Tempat Pengambilan Mobil</p>
+                        <div className="flex items-center">
+                          <FaCircleDot className="text-blue-600" />
+                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{tempatAmbil}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <p className="font-semibold">{parseInt(totalPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
-                </div>
-                <div className="flex justify-end mt-10">
-                  <button onClick={onBooking} className="bg-blue-500 hover:bg-blue-600 text-white text-sm py-2 px-5 rounded-lg">
-                    Bayar
-                  </button>
+                  <div className="flex justify-between md:px-3 py-5 md:w-1/3">
+                    <div className="grid gap-3 h-fit">
+                      <hr className="md:border-transparent border border-r-2" />
+                      <div className="flex justify-between">
+                        <p className="font-semibold">Total Harga :</p>
+                        <p className="font-semibold">{parseInt(totalPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
+                      </div>
+                      <div className="mt-5">
+                        <button onClick={onBooking} className="w-full bg-blue-500 hover:bg-blue-600 text-white text-sm py-2 px-5 rounded-lg">
+                          Bayar
+                        </button>
+                      </div>
+                      <hr className="mt-10" />
+                      <div className="flex gap-3">
+                        <BiSolidHelpCircle className="text-blue-500 text-xl mt-0.5" />
+                        <p className="text-sm w-3/4">Anda dapat membayar uang muka (DP) terlebih dahulu sebesar 50%</p>
+                      </div>
+                      <hr />
+                      <div className="flex gap-3 w-full">
+                        <BiSolidHelpCircle className="text-blue-500 text-xl mt-0.5" />
+                        <p className="text-sm w-3/4">Apabila Anda membayar uang muka (DP) terlebih dahulu, maka pembayaran sisanya akan dilakukan ketika pengambilan mobil.</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </>

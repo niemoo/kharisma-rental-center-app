@@ -66,7 +66,7 @@ export default function PemesananForm() {
     dispatch(setEndTime(jamAkhirRef.current?.value ?? ''));
     dispatch(setTempatAmbil(isInKantor ? 'Kantor KRC' : tempatAmbilRef.current?.value ?? ''));
 
-    router.push(`/pemesanan/konfirmasi-pembayaran`);
+    router.push(`/pemesanan/konfirmasi-pemesanan`);
   };
 
   return (
@@ -98,7 +98,7 @@ export default function PemesananForm() {
                   </Breadcrumb>
                 </div>
 
-                <div className="md:w-1/2 mx-auto px-5 py-6 border border-gray-300 rounded-lg shadow-lg">
+                <div className="md:w-1/2 bg-white mx-auto px-5 py-6 border border-gray-300 rounded-lg shadow-lg">
                   <h3 className="text-xl font-semibold">Form Pemesanan</h3>
                   <hr className="my-5" />
 

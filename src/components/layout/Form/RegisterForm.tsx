@@ -43,6 +43,7 @@ export default function RegisterForm() {
       router.push('/login');
     } catch (err) {
       setMessage((err as Error)?.message);
+      toast.error((err as Error)?.message);
     }
   }
 
