@@ -10,7 +10,7 @@ export default function RegisterFooter({ text, href, pushText }: RegisterFooterP
   return (
     <h3 className="font-semibold">
       {text}
-      <Link href={href} className="text-blue-600 hover:underline">
+      <Link href={href} className="text-blue-800 hover:underline">
         {pushText}
       </Link>
     </h3>

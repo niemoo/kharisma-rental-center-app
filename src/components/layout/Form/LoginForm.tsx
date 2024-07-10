@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import sidewave2 from '../../../../public/sidewave2.png';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -51,17 +52,26 @@ export default function LoginForm() {
   return (
     <>
       <ToastContainer />
-      <form className="md:w-1/2 grid gap-5 mx-auto mt-20 bg-white p-5 rounded-lg shadow-xl border border-gray-500" onSubmit={handleLogin}>
+      <form
+        className="md:w-1/2 grid gap-5 mx-auto bg-white p-5 rounded-lg shadow-xl border border-gray-500"
+        onSubmit={handleLogin}
+        style={{
+          backgroundImage: `url(${sidewave2.src})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover', // Menyesuaikan ukuran background image dengan ukuran form
+          backgroundPosition: 'center',
+        }}
+      >
         <h3 className="text-xl font-semibold">Login</h3>
         <hr className="" />
         {message && <div className="text-red-500 text-sm mb-4">{message}</div>}
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="username">Username</Label>
-          <Input required type="text" id="username" placeholder="Masukkan Username" ref={usernameRef} />
+          <Input className="bg-white" required type="text" id="username" placeholder="Masukkan Username" ref={usernameRef} />
         </div>
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="password">Password</Label>
-          <Input required type="password" id="password" placeholder="Masukkan Password" ref={passwordRef} />
+          <Input className="bg-white" required type="password" id="password" placeholder="Masukkan Password" ref={passwordRef} />
         </div>
         <div className="w-full flex justify-end">
           <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded">

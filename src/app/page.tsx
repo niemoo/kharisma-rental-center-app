@@ -2,9 +2,8 @@
 
 import ReduxProvider from '@/store/redux-provider';
 import Hero1 from '../../public/carparkir.jpg';
-import Hero2 from '../../public/hero-1.jpg';
 import verticalCar from '../../public/verticalcar.jpg';
-import logoKRC from '../../public/logoKRC2.png';
+import blurry_background from '../../public/blurry_background.png';
 import Image from 'next/image';
 import Navbar from '@/components/layout/Navbar/UserNavbar';
 import { MdOutlineDirectionsCarFilled, MdNavigateNext } from 'react-icons/md';
@@ -14,8 +13,8 @@ import { PiSealCheckFill } from 'react-icons/pi';
 import { Ri24HoursLine } from 'react-icons/ri';
 import { GiClick } from 'react-icons/gi';
 import { IoLogoWhatsapp } from 'react-icons/io';
-import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import Link from 'next/link';
+import Footer from '@/components/layout/Footer';
 
 export default function Home() {
   return (
@@ -32,7 +31,15 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-zinc-100 py-10">
+      <section
+        className="py-10"
+        style={{
+          backgroundImage: `url(${blurry_background.src})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover', // Menyesuaikan ukuran background image dengan ukuran form
+          backgroundPosition: 'center',
+        }}
+      >
         <div className="max-w-screen-lg mx-auto md:p-0 p-5">
           <div>
             <p className="text-center text-sky-700 font-semibold">- Cara Menyewa -</p>
@@ -127,45 +134,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <footer className="py-20 bg-sky-950 border border-transparent border-t-2 border-t-white">
-        <div className="max-w-screen-md mx-auto md:flex justify-between gap-10 items-stretch">
-          <div className="flex justify-center">
-            <Image src={logoKRC} alt="" width={300} height={300} className="h-20 w-fit" />
-          </div>
-          <div className="h-full flex flex-col justify-center">
-            <h3 className="text-lg font-semibold md:mt-0 mt-10 text-white md:text-left text-center">Perusahaan</h3>
-            <ul className="md:mt-10 mt-5 md:grid flex justify-center">
-              <li className="flex items-center mt-2 underline hover:text-emerald-300 text-sm text-zinc-100">
-                <MdNavigateNext />
-                <Link href="/mobil">Mobil</Link>
-              </li>
-              <li className="flex items-center mt-2 underline hover:text-emerald-300 text-sm text-zinc-100">
-                <MdNavigateNext />
-                <Link href="/ketentuan">Ketentuan</Link>
-              </li>
-              <li className="flex items-center mt-2 underline hover:text-emerald-300 text-sm text-zinc-100">
-                <MdNavigateNext />
-                <Link href="/about">Tentang Kami</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="h-full flex flex-col justify-center pb-20">
-            <h3 className="text-lg font-semibold md:mt-0 mt-10 text-white text-center">Social Media</h3>
-            <div className="flex justify-center gap-2 md:mt-10 mt-5">
-              <Link href={'https://wa.me/6285647108657'} target="_blank" className="border border-gray-500 text-green-500 bg-white hover:text-white hover:bg-green-500 p-2 rounded-full transition-all duration-300 cursor-pointer">
-                <FaWhatsapp className="text-xl" />
-              </Link>
-              <Link
-                href={'https://www.instagram.com/rentalhtsurakarta/'}
-                target="_blank"
-                className="border border-gray-500 text-pink-500 bg-white hover:text-white hover:bg-pink-500 p-2 rounded-full transition-all duration-300 cursor-pointer"
-              >
-                <FaInstagram className="text-xl" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </ReduxProvider>
   );
 }
