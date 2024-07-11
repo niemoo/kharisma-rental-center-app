@@ -12,10 +12,10 @@ export default function Invoice({ params: { id } }: SpecifiedPageProps) {
   return (
     <ReduxProvider>
       <div className="p-5">
-        <Link href="/" className="px-4 py-2 border border-cyan-600 rounded-lg hover:bg-cyan-600 hover:text-white">
-          Kembali ke Halaman Utama
+        <Link href="/profil" className="px-4 py-2 border border-cyan-600 rounded-lg hover:bg-cyan-600 hover:text-white">
+          Kembali ke Halaman Profil
         </Link>
-        <PrintInvoice />
+        <PrintInvoice id={id} />
       </div>
     </ReduxProvider>
   );

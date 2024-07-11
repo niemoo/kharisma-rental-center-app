@@ -5,6 +5,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useAppSelector } from '@/store/store';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { FaDownload } from 'react-icons/fa';
 
 function formatRupiah(number: number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
@@ -67,7 +69,11 @@ export default function UserHistoryTable() {
               <TableBody>
                 {datas?.map((data) => (
                   <TableRow key={data.id} className="odd:bg-white even:bg-slate-200">
-                    <TableCell className="px-3 py-2 border">{data.id}</TableCell>
+                    <TableCell className="px-3 py-2 border">
+                      <Link href={`/print-invoice/${data.id}`} className="text-xl text-sky-700 hover:text-sky-900">
+                        <FaDownload />
+                      </Link>
+                    </TableCell>
                     <TableCell className="px-3 py-2 border">{data.id}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.full_name}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.tempat_ambil}</TableCell>
