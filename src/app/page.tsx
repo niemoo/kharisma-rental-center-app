@@ -80,7 +80,10 @@ export default function Home() {
             <Image src={verticalCar} alt="" width={300} height={300} className="h-fit rounded-xl z-10 relative" />
           </div>
           <div className="md:w-2/3">
-            <h3 className="text-3xl font-semibold text-blue-800">Kenapa Harus Kami ?</h3>
+            <div className="flex items-center md:mt-0 mt-20">
+              <div className="border-l-4 border-red-500 md:h-8 h-14 rounded mr-2"></div>
+              <h3 className="text-4xl font-bold text-cyan-900">Kenapa Harus Kami ?</h3>
+            </div>
             <h1 className="text-6xl font-extrabold"></h1>
             <div className="mt-10">
               <div className="md:flex justify-between gap-10">

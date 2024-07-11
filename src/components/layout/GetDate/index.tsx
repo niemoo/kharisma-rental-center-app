@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { setStartDate, setEndDate, setTotalDays } from '@/store/appSlice';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function GetDate() {
+  const router = useRouter();
   const [startDate, setStartDateState] = useState('');
   const [endDate, setEndDateState] = useState('');
   const currentPath = usePathname();
@@ -32,29 +33,34 @@ export default function GetDate() {
     }
   }, [startDate, endDate, dispatch]);
 
-  const setDate = () => {
+  const setDate = (event: React.FormEvent) => {
+    event.preventDefault();
     dispatch(setStartDate(start_dateRef.current?.value ?? ''));
     dispatch(setEndDate(end_dateRef.current?.value ?? ''));
     if (currentPath == '/mobil/available') {
       window.location.reload();
+    } else {
+      router.push('/mobil/available');
     }
   };
 
   return (
     <div className="md:w-1/2 mx-auto">
-      <div className="md:flex gap-5 items-center">
-        <div className="grid">
-          <p className="text-center text-white font-semibold">Mulai Sewa</p>
-          <input type="date" name="start_date" id="start_date" ref={start_dateRef} onChange={(e) => setStartDateState(e.target.value)} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md" />
+      <form action="" onSubmit={setDate}>
+        <div className="md:flex gap-5 items-center">
+          <div className="grid">
+            <p className="text-center text-white font-semibold">Mulai Sewa</p>
+            <input required type="date" name="start_date" id="start_date" ref={start_dateRef} onChange={(e) => setStartDateState(e.target.value)} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md" />
+          </div>
+          <div className="grid">
+            <p className="text-center text-white font-semibold">Akhir Sewa</p>
+            <input required type="date" name="end_date" id="end_date" ref={end_dateRef} onChange={(e) => setEndDateState(e.target.value)} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md" />
+          </div>
         </div>
-        <div className="grid">
-          <p className="text-center text-white font-semibold">Akhir Sewa</p>
-          <input type="date" name="end_date" id="end_date" ref={end_dateRef} onChange={(e) => setEndDateState(e.target.value)} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md" />
-        </div>
-      </div>
-      <Link href="/mobil/available" className="w-full flex justify-center mt-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg" onClick={setDate}>
-        Check
-      </Link>
+        <button type="submit" className="w-full flex justify-center mt-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg">
+          Check
+        </button>
+      </form>
     </div>
   );
 }

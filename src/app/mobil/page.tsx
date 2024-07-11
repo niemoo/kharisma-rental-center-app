@@ -6,7 +6,6 @@ import Navbar from '@/components/layout/Navbar/UserNavbar';
 import CarsCard from '@/components/layout/CarsCard';
 import GetDate from '@/components/layout/GetDate';
 import Wave from '../../../public/wave.png';
-import Wave2 from '../../../public/wave2.png';
 import Footer from '@/components/layout/Footer';
 
 export default function Mobil() {
@@ -32,6 +31,7 @@ export default function Mobil() {
 
   return (
     <ReduxProvider>
+      <title>Mobil | KRC</title>
       <Navbar />
       <main className="bg-slate-100">
         <div

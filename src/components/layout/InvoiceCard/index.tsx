@@ -39,14 +39,14 @@ export default function InvoiceCard() {
     axios
       .put(`http://localhost:3001/booking/pembayaran/${bookingId}`, formData)
       .then((response) => {
-        toast.success('Data Berhasil Terupdate');
+        toast.success('Bukti Pembayaran Berhasil Diupload');
       })
       .catch((err) => {
         toast.error(err.message);
       })
       .finally(() => {
         dispatch(setBookingId(null));
-        router.push('/dashboard');
+        router.push('/profil');
       });
   };
 

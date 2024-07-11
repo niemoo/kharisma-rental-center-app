@@ -84,15 +84,19 @@ export default function PemesananForm() {
                   <Breadcrumb>
                     <BreadcrumbList>
                       <BreadcrumbItem>
-                        <BreadcrumbLink href="/mobil">Mobil</BreadcrumbLink>
+                        <BreadcrumbLink className="text-zinc-100" href="/mobil">
+                          Mobil
+                        </BreadcrumbLink>
                       </BreadcrumbItem>
                       <BreadcrumbSeparator />
                       <BreadcrumbItem>
-                        <BreadcrumbLink href={`/mobil/${selectedCarId}`}>Detail Mobil</BreadcrumbLink>
+                        <BreadcrumbLink className="text-zinc-100" href={`/mobil/${selectedCarId}`}>
+                          Detail Mobil
+                        </BreadcrumbLink>
                       </BreadcrumbItem>
                       <BreadcrumbSeparator />
                       <BreadcrumbItem>
-                        <BreadcrumbPage>Form Pemesanan</BreadcrumbPage>
+                        <BreadcrumbPage className="text-zinc-200">Form Pemesanan</BreadcrumbPage>
                       </BreadcrumbItem>
                     </BreadcrumbList>
                   </Breadcrumb>

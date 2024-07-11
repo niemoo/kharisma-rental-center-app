@@ -39,101 +39,102 @@ export default function Navbar() {
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                {/* Mobile menu button */}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition duration-300 ease-in-out">
-                  <span className="absolute -inset-0.5" />
+              <div className="flex items-center">
+                <Image src={logoKRC} alt="KRC Logo" className="h-8 w-auto" />
+              </div>
+              <div className="hidden sm:ml-6 sm:block">
+                <div className="flex items-center space-x-4">
+                  <Link href="/" className={classNames(currentPath == '/' ? 'bg-blue-900 text-white' : 'text-zinc-100 hover:bg-blue-900 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium transition duration-300 ease-in-out')}>
+                    Home
+                  </Link>
+                  <Link
+                    href="/mobil"
+                    className={classNames(currentPath == '/mobil' ? 'bg-blue-900 text-white' : 'text-zinc-100 hover:bg-blue-900 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium transition duration-300 ease-in-out')}
+                  >
+                    Mobil
+                  </Link>
+                  <Link
+                    href="/ketentuan"
+                    className={classNames(currentPath == '/ketentuan' ? 'bg-blue-900 text-white' : 'text-zinc-100 hover:bg-blue-900 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium transition duration-300 ease-in-out')}
+                  >
+                    Ketentuan
+                  </Link>
+                  <Link
+                    href="/about"
+                    className={classNames(currentPath == '/about' ? 'bg-blue-900 text-white' : 'text-zinc-100 hover:bg-blue-900 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium transition duration-300 ease-in-out')}
+                  >
+                    Tentang Kami
+                  </Link>
+                </div>
+              </div>
+              <div className="hidden sm:ml-6 sm:block">
+                <div className="flex items-center space-x-4">
+                  {isLogin ? (
+                    <div className="relative ml-3">
+                      <Menu as="div" className="relative">
+                        <Menu.Button className="relative flex rounded-full text-sm">
+                          <FaUserCircle className="text-3xl text-white hover:text-zinc-200" />
+                        </Menu.Button>
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link href="/profil" className={classNames(active ? 'bg-gray-100 w-full text-center' : '', 'w-full text-center block px-4 py-2 text-sm text-gray-700')}>
+                                  Profil
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <button onClick={handleLogout} className={classNames(active ? 'bg-gray-100 w-full text-center' : '', 'w-full text-center block px-4 py-2 text-sm text-gray-700')}>
+                                  Sign out
+                                </button>
+                              )}
+                            </Menu.Item>
+                          </Menu.Items>
+                        </Transition>
+                      </Menu>
+                    </div>
+                  ) : (
+                    <div className="md:flex gap-2 hidden">
+                      <Link
+                        href="/login"
+                        className={classNames(
+                          currentPath == '/login'
+                            ? 'bg-blue-900 text-white rounded-md px-3 py-2 text-sm text-base font-medium'
+                            : 'text-zinc-100 hover:bg-blue-900 hover:text-white rounded-md px-3 py-2 text-sm text-base font-medium transition duration-300 ease-in-out'
+                        )}
+                      >
+                        Masuk
+                      </Link>
+                      <Link
+                        href="/register"
+                        className={classNames(
+                          currentPath == '/register'
+                            ? 'bg-blue-900 text-white rounded-md px-3 py-2 text-sm text-base font-medium'
+                            : 'text-zinc-100 hover:bg-blue-900 hover:text-white rounded-md px-3 py-2 text-sm text-base font-medium transition duration-300 ease-in-out'
+                        )}
+                      >
+                        Daftar
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="sm:hidden">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-blue-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition duration-300 ease-in-out">
                   <span className="sr-only">Open main menu</span>
                   {open ? <XMarkIcon className="block h-6 w-6" aria-hidden="true" /> : <Bars3Icon className="block h-6 w-6" aria-hidden="true" />}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <Image src={logoKRC} alt="KRC Logo" className="h-8 w-auto" />
-                </div>
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(currentPath == item.href ? 'bg-blue-900 text-white' : 'text-gray-300 hover:bg-blue-900 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium transition duration-300 ease-in-out')}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              {isLogin ? (
-                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  <Menu as="div" className="relative ml-3">
-                    <div>
-                      <Menu.Button className="relative flex rounded-full text-sm">
-                        <FaUserCircle className="text-3xl text-white hover:text-zinc-200" />
-
-                        {/* <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" /> */}
-                      </Menu.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <div className="grid absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <button>
-                          <Link href="/dashboard" className={classNames(currentPath == '/' ? 'bg-white hover:bg-gray-100' : 'bg-white hover:bg-gray-100', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Riwayat Penyewaan
-                          </Link>
-                        </button>
-
-                        <button>
-                          <Link href="/dashboard/profil" className={classNames(currentPath == '/' ? 'bg-white hover:bg-gray-100' : 'bg-white hover:bg-gray-100', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Profil
-                          </Link>
-                        </button>
-
-                        <button onClick={handleLogout}>
-                          <Link href="#" className={classNames(currentPath == '/' ? 'bg-white hover:bg-gray-100' : 'bg-white hover:bg-gray-100', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Sign out
-                          </Link>
-                        </button>
-                      </div>
-                    </Transition>
-                  </Menu>
-                </div>
-              ) : (
-                <div className="md:flex gap-2 hidden">
-                  <button>
-                    <Link
-                      href="/login"
-                      className={
-                        currentPath == '/login'
-                          ? 'bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium'
-                          : 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-base font-medium transition duration-300 ease-in-out'
-                      }
-                    >
-                      Masuk
-                    </Link>
-                  </button>
-                  <button>
-                    <Link
-                      href="/register"
-                      className={
-                        currentPath == '/register'
-                          ? 'bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium'
-                          : 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-base font-medium transition duration-300 ease-in-out'
-                      }
-                    >
-                      Daftar
-                    </Link>
-                  </button>
-                </div>
-              )}
             </div>
           </div>
 
@@ -149,6 +150,37 @@ export default function Navbar() {
                   {item.name}
                 </Disclosure.Button>
               ))}
+              {isLogin ? (
+                <>
+                  <Disclosure.Button
+                    as="a"
+                    href={'/profil'}
+                    className={classNames(currentPath == '/profil' ? 'bg-gray-900 text-white w-full text-left' : 'w-full text-left text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium')}
+                  >
+                    Profil
+                  </Disclosure.Button>
+                  <Disclosure.Button as="button" onClick={handleLogout} className={classNames('w-full text-left text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium')}>
+                    Logout
+                  </Disclosure.Button>
+                </>
+              ) : (
+                <>
+                  <Disclosure.Button
+                    as="a"
+                    href={'/login'}
+                    className={classNames(currentPath == '/login' ? 'bg-gray-900 text-white w-full text-left' : 'w-full text-left text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium')}
+                  >
+                    Masuk
+                  </Disclosure.Button>
+                  <Disclosure.Button
+                    as="a"
+                    href={'/register'}
+                    className={classNames(currentPath == '/register' ? 'bg-gray-900 text-white w-full text-left' : 'w-full text-left text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium')}
+                  >
+                    Daftar
+                  </Disclosure.Button>
+                </>
+              )}
             </div>
           </Disclosure.Panel>
         </>

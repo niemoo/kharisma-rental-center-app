@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { BiSolidHelpCircle } from 'react-icons/bi';
 import { FaCircleDot } from 'react-icons/fa6';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import {
   setAlamat,
   setBookingId,
@@ -26,7 +27,7 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function KonfirmasiPembayaranCard() {
+export default function KonfirmasiPemesananCard() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const isLogin = useAppSelector((state) => state.app.isLogin);
@@ -96,7 +97,7 @@ export default function KonfirmasiPembayaranCard() {
       const response = await res.json();
 
       dispatch(setBookingId(response.data.booking_id));
-      toast.success('Data Berhasil Terupdate');
+      toast.success('Pemesanan Berhasil');
       router.push('/pemesanan/pembayaran');
     } catch (error) {
       console.error('Error : ', error);
@@ -113,7 +114,35 @@ export default function KonfirmasiPembayaranCard() {
             router.push('/pemesanan')
           ) : (
             <>
-              <div className="p-5 mb-20 bg-white border border-gray-300 rounded-lg">
+              <ToastContainer />
+              <div className="mb-5">
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink className="text-zinc-100" href="/mobil">
+                        Mobil
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                      <BreadcrumbLink className="text-zinc-100" href={`/mobil/${selectedCarId}`}>
+                        Detail Mobil
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                      <BreadcrumbLink className="text-zinc-100" href={`/pemesanan`}>
+                        Form Pemesanan
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage className="text-zinc-200">Konfirmasi Pemesanan</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+              </div>
+              <div className="p-5 mb-20 bg-white border border-gray-300 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-blue-900">Konfirmasi Pemesanan</h3>
                 <hr className="border border-r-2 border-gray-200 mt-5" />
                 <div className="md:flex">
@@ -237,6 +266,21 @@ export default function KonfirmasiPembayaranCard() {
                       <div className="flex gap-3 w-full">
                         <BiSolidHelpCircle className="text-blue-500 text-xl mt-0.5" />
                         <p className="text-sm w-3/4">Apabila Anda membayar uang muka (DP) terlebih dahulu, maka pembayaran sisanya akan dilakukan ketika pengambilan mobil.</p>
+                      </div>
+                      <hr />
+                      <div className="flex gap-3 w-full">
+                        <BiSolidHelpCircle className="text-blue-500 text-xl mt-0.5" />
+                        <p className="text-sm w-3/4">Batas waktu untuk pembayaran adalah 24 jam, terhitung dari waktu pemesanan. Jika melebihi waktu yang telah ditentukan, maka pemesanan akan dibatalkan</p>
+                      </div>
+                      <hr />
+                      <div className="flex gap-3 w-full">
+                        <BiSolidHelpCircle className="text-blue-500 text-xl mt-0.5" />
+                        <p className="text-sm w-3/4">Berkas jaminan sewa yang diberikan harus berupa berkas asli. Pemberian jaminan sewa dilakukan pada waktu pengambilan mobil.</p>
+                      </div>
+                      <hr />
+                      <div className="flex gap-3 w-full">
+                        <BiSolidHelpCircle className="text-blue-500 text-xl mt-0.5" />
+                        <p className="text-sm w-3/4">Pastikan waktu pengambilan dan pengembalian mobil sudah sesuai. Apabila melebihi waktu pengembalian mobil, maka akan dikenakan denda sebesar Rp 30.000</p>
                       </div>
                     </div>
                   </div>

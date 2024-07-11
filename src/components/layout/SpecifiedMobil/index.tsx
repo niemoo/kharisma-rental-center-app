@@ -36,10 +36,9 @@ export default function SpecifiedMobil({ id }: SpecifiedMobilProps) {
       setError('No car ID found in local storage');
     }
   }, []);
+
   useEffect(() => {
-    if (carData) {
-      console.log(carData);
-    }
+    document.title = `${carData?.name} | Mobil`;
   }, [carData]);
 
   return (

@@ -1,15 +1,15 @@
 'use client';
 
 import ReduxProvider from '@/store/redux-provider';
-import PemesananForm from '@/components/layout/Form/PemesananForm';
 import Navbar from '@/components/layout/Navbar/UserNavbar';
-import Wave from '../../../public/wave.png';
 import Footer from '@/components/layout/Footer';
+import Wave from '../../../public/wave.png';
 
-export default function Pemesanan() {
+export default function Ketentuan() {
   return (
     <ReduxProvider>
-      <title>Pemesanan | KRC</title>
+      <title>Ketentuan | KRC</title>
+
       <Navbar />
       <main className="bg-slate-100">
         <div
@@ -18,12 +18,12 @@ export default function Pemesanan() {
             backgroundRepeat: 'no-repeat',
           }}
         >
-          <div className="max-w-screen-xl mx-auto md:pb-20 md:pt-5 p-5">
-            <PemesananForm />
+          <div className="max-w-screen-md mx-auto md:pb-20 md:pt-5 p-5">
+            <p>asd</p>
           </div>
         </div>
+        <Footer />
       </main>
-      <Footer />
     </ReduxProvider>
   );
 }

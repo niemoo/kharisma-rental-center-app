@@ -39,11 +39,12 @@ export default function UserHistoryTable() {
     <>
       {isLogin ? (
         <>
-          <div className="bg-white rounded-lg border border-blue-300 mt-5 shadow-md">
-            {/* <p className="py-3 px-2 font-semibold">Riwayat Penyewaan</p> */}
+          <div className="max-w-screen-lg mx-auto bg-white rounded-lg border border-blue-300 mt-5 shadow-md">
+            <p className="py-3 px-2 font-semibold">Riwayat Penyewaan</p>
             <Table className="table-auto w-full border-collapse rounded-b-lg overflow-hidden">
               <TableHeader>
                 <TableRow className="bg-blue-500">
+                  <TableHead className="px-3 py-2 border text-white">Download Invoice</TableHead>
                   <TableHead className="px-3 py-2 border text-white">No Booking</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Nama Pemesan</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Tempat Pengambilan</TableHead>
@@ -58,7 +59,7 @@ export default function UserHistoryTable() {
                   <TableHead className="px-3 py-2 border text-white">Total Tagihan</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Terbayar</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Metode Pembayaran</TableHead>
-                  <TableHead className="px-3 py-2 border text-white">Bukti Pembayaran</TableHead>
+                  {/* <TableHead className="px-3 py-2 border text-white">Bukti Pembayaran</TableHead> */}
                   <TableHead className="px-3 py-2 border text-white">Status</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Tanggal Pesan</TableHead>
                 </TableRow>
@@ -66,6 +67,7 @@ export default function UserHistoryTable() {
               <TableBody>
                 {datas?.map((data) => (
                   <TableRow key={data.id} className="odd:bg-white even:bg-slate-200">
+                    <TableCell className="px-3 py-2 border">{data.id}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.id}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.full_name}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.tempat_ambil}</TableCell>
@@ -80,9 +82,9 @@ export default function UserHistoryTable() {
                     <TableCell className="px-3 py-2 border">{formatRupiah(data.total_price)}</TableCell>
                     <TableCell className="px-3 py-2 border">{formatRupiah(data.amount)}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.payment_method}</TableCell>
-                    <TableCell className="px-3 py-2 border">
+                    {/* <TableCell className="px-3 py-2 border">
                       <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${data.image}`} alt="" width={1000} height={1000} className="mx-auto w-20 h-fit rounded-lg" />
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell className="px-3 py-2 border">{data.payment_status}</TableCell>
                     <TableCell className="px-3 py-2 border">{`${new Date(data.booking_date).toLocaleDateString()}`}</TableCell>
                   </TableRow>

@@ -4,7 +4,11 @@ import ReduxProvider from '@/store/redux-provider';
 import Navbar from '@/components/layout/Navbar/UserNavbar';
 import InvoiceCard from '@/components/layout/InvoiceCard';
 
-export default function Pembayaran() {
+interface SpecifiedPageProps {
+  params: { id: number };
+}
+
+export default function Pembayaran({ params: { id } }: SpecifiedPageProps) {
   return (
     <ReduxProvider>
       <Navbar />
