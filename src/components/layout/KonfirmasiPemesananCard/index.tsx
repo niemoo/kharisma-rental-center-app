@@ -32,6 +32,7 @@ export default function KonfirmasiPemesananCard() {
   const dispatch = useAppDispatch();
   const isLogin = useAppSelector((state) => state.app.isLogin);
   const userId = useAppSelector((state) => state.app.userId);
+  const bookingId = useAppSelector((state) => state.app.bookingId);
   const isBook = useAppSelector((state) => state.app.isBook);
   const userFullName = useAppSelector((state) => state.app.userFullname);
   const selectedCarId = useAppSelector((state) => state.app.selectedCarId);
@@ -98,7 +99,7 @@ export default function KonfirmasiPemesananCard() {
 
       dispatch(setBookingId(response.data.booking_id));
       toast.success('Pemesanan Berhasil');
-      router.push('/pemesanan/pembayaran');
+      router.push(`/pembayaran/${bookingId}`);
     } catch (error) {
       console.error('Error : ', error);
     }

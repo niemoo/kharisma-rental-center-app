@@ -53,7 +53,7 @@ export default function InvoiceCard() {
   return (
     <>
       <ToastContainer />
-      <div className="md:w-1/2 mx-auto py-5 px-4 border border-blue-500 rounded-lg shadow-lg">
+      <div className="md:w-1/2 bg-white mx-auto py-5 px-4 border border-blue-500 rounded-lg shadow-lg">
         <h3 className="font-semibold text-2xl">Pembayaran</h3>
         <hr className="my-5" />
         <Accordion type="single" collapsible>
