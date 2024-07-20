@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 interface Booking {
   id: number;
   full_name: string;
+  car_name: string;
   booking_date: string;
   alamat: string;
   instagram: string;
@@ -44,12 +45,16 @@ export default function AdminDashboardBookings() {
   const [paymentStatus, setPaymentStatus] = useState<String | null>(null);
   const [datas, setDatas] = useState<Booking[]>([]);
   const amountRef = useRef<HTMLInputElement>(null);
+  const start_dateRef = useRef<HTMLInputElement>(null);
+  const end_dateRef = useRef<HTMLInputElement>(null);
+  const start_timeRef = useRef<HTMLInputElement>(null);
+  const end_timeRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const isAdmin = useAppSelector((state) => state.app.isAdmin);
 
   const fetchData = async () => {
     try {
-      const historyBookingsResponse = await fetch('http://localhost:3001/dashboard/bookings/all-history', {
+      const historyBookingsResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/bookings/all-history', {
         cache: 'no-cache',
       });
 
@@ -73,10 +78,14 @@ export default function AdminDashboardBookings() {
   };
 
   const handleSubmitUpdate = async () => {
-    const updateResponse = await fetch(`http://localhost:3001/payment/update-status/${selectedBooking}`, {
+    const updateResponse = await fetch(`http://api.kharisma-rental-center.my.id/payment/update-status/${selectedBooking}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        start_date: start_dateRef.current?.value,
+        end_date: end_dateRef.current?.value,
+        start_time: start_timeRef.current?.value,
+        end_time: end_timeRef.current?.value,
         amount: amountRef.current?.value,
         status: paymentStatus,
       }),
@@ -89,7 +98,7 @@ export default function AdminDashboardBookings() {
   };
 
   const handleDelete = async () => {
-    const deleteResponse = await fetch(`http://localhost:3001/bookings/${selectedBooking}`, {
+    const deleteResponse = await fetch(`http://api.kharisma-rental-center.my.id/bookings/${selectedBooking}`, {
       method: 'DELETE',
     });
 
@@ -113,8 +122,10 @@ export default function AdminDashboardBookings() {
               <Table className="table-auto w-full border-collapse rounded-b-lg overflow-hidden">
                 <TableHeader>
                   <TableRow className="bg-blue-500">
+                    <TableHead className="px-3 py-2 border text-white">Aksi</TableHead>
                     <TableHead className="px-3 py-2 border text-white">No Booking</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Nama Pemesan</TableHead>
+                    <TableHead className="px-3 py-2 border text-white">Nama Mobil</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Tempat Pengambilan</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Alamat Pemesan</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Instagram</TableHead>
@@ -130,31 +141,11 @@ export default function AdminDashboardBookings() {
                     <TableHead className="px-3 py-2 border text-white">Bukti Pembayaran</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Status</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Tanggal Pesan</TableHead>
-                    <TableHead className="px-3 py-2 border text-white">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {datas.map((booking: Booking) => (
                     <TableRow key={booking.id} className="odd:bg-white even:bg-slate-200">
-                      <TableCell className="px-3 py-2 border">{booking.id}</TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.full_name}</TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.tempat_ambil}</TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.alamat}</TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.instagram}</TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.tujuan_sewa}</TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.rute}</TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.jaminan}</TableCell>
-                      <TableCell className="px-3 py-2 border">{`${new Date(booking.start_date).toLocaleDateString()} - ${new Date(booking.end_date).toLocaleDateString()}`}</TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.start_time}</TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.end_time}</TableCell>
-                      <TableCell className="px-3 py-2 border">{formatRupiah(booking.total_price)}</TableCell>
-                      <TableCell className="px-3 py-2 border">{formatRupiah(booking.amount)}</TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.payment_method}</TableCell>
-                      <TableCell className="px-3 py-2 border">
-                        <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${booking.image}`} alt="" width={1000} height={1000} className="mx-auto w-20 h-fit rounded-lg" />
-                      </TableCell>
-                      <TableCell className="px-3 py-2 border">{booking.payment_status}</TableCell>
-                      <TableCell className="px-3 py-2 border">{`${new Date(booking.booking_date).toLocaleDateString()}`}</TableCell>
                       <TableCell className="px-3 py-2 border text-center">
                         <AlertDialog>
                           <AlertDialogTrigger onClick={() => handleEditClick(booking)}>
@@ -166,18 +157,38 @@ export default function AdminDashboardBookings() {
                               <AlertDialogDescription>
                                 {selectedBooking && (
                                   <div className="grid gap-2 mb-4 mt-5">
+                                    <div className="flex items-center justify-center gap-10 mb-2">
+                                      <div className="grid">
+                                        <p className="text-center text-black font-semibold">Tanggal Mulai Sewa</p>
+                                        <input required type="date" name="start_date" id="start_date" ref={start_dateRef} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md w-full" />
+                                      </div>
+                                      <div className="grid">
+                                        <p className="text-center text-black font-semibold">Tanggal Akhir Sewa</p>
+                                        <input required type="date" name="end_date" id="end_date" ref={end_dateRef} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md w-full" />
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center justify-center gap-10 mb-2">
+                                      <div className="grid">
+                                        <p className="text-center text-black font-semibold">Jam Mulai Sewa</p>
+                                        <input required type="time" name="start_time" id="start_time" ref={start_timeRef} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md w-full" />
+                                      </div>
+                                      <div className="grid">
+                                        <p className="text-center text-black font-semibold">Jam Akhir Sewa</p>
+                                        <input required type="time" name="end_time" id="end_time" ref={end_timeRef} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md w-full" />
+                                      </div>
+                                    </div>
                                     <div className="grid gap-2 mb-5">
                                       <Label className="block text-gray-700">Uang yang Sudah Terbayarkan</Label>
                                       <Input type="number" ref={amountRef} />
                                     </div>
-                                    <Label className="block text-gray-700">Status Pembayaran</Label>
+                                    <Label className="block text-gray-700">Status</Label>
                                     <Select onValueChange={(value) => setPaymentStatus(value)} required>
                                       <SelectTrigger className="w-full">
-                                        <SelectValue placeholder="Pilih Status Pembayaran" />
+                                        <SelectValue placeholder="Pilih Status" />
                                       </SelectTrigger>
                                       <SelectContent>
                                         <SelectGroup>
-                                          <SelectLabel>Status Pembayaran</SelectLabel>
+                                          <SelectLabel>Status</SelectLabel>
 
                                           <SelectItem value="Selesai">Selesai</SelectItem>
                                           <SelectItem value="Sedang Proses Penyewaan">Sedang Proses Penyewaan</SelectItem>
@@ -217,6 +228,26 @@ export default function AdminDashboardBookings() {
                           </AlertDialogContent>
                         </AlertDialog>
                       </TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.id}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.full_name}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.car_name}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.tempat_ambil}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.alamat}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.instagram}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.tujuan_sewa}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.rute}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.jaminan}</TableCell>
+                      <TableCell className="px-3 py-2 border">{`${new Date(booking.start_date).toLocaleDateString()} - ${new Date(booking.end_date).toLocaleDateString()}`}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.start_time}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.end_time}</TableCell>
+                      <TableCell className="px-3 py-2 border">{formatRupiah(booking.total_price)}</TableCell>
+                      <TableCell className="px-3 py-2 border">{formatRupiah(booking.amount)}</TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.payment_method}</TableCell>
+                      <TableCell className="px-3 py-2 border">
+                        <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${booking.image}`} alt="" width={1000} height={1000} className="mx-auto w-20 h-fit rounded-lg" />
+                      </TableCell>
+                      <TableCell className="px-3 py-2 border">{booking.payment_status}</TableCell>
+                      <TableCell className="px-3 py-2 border">{`${new Date(booking.booking_date).toLocaleDateString()}`}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

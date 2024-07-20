@@ -57,8 +57,8 @@ export default function GetDate() {
             <input required type="date" name="end_date" id="end_date" ref={end_dateRef} onChange={(e) => setEndDateState(e.target.value)} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md" />
           </div>
         </div>
-        <button type="submit" className="w-full flex justify-center mt-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg">
-          Check
+        <button type="submit" className="w-full flex justify-center mt-5 py-2 bg-blue-600 hover:bg-blue-700 text-white border border-blue-400 rounded-lg shadow-lg">
+          Cek Ketersediaan
         </button>
       </form>
     </div>

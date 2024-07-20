@@ -34,7 +34,6 @@ export default function KonfirmasiPemesananCard() {
   const userId = useAppSelector((state) => state.app.userId);
   const bookingId = useAppSelector((state) => state.app.bookingId);
   const isBook = useAppSelector((state) => state.app.isBook);
-  const userFullName = useAppSelector((state) => state.app.userFullname);
   const selectedCarId = useAppSelector((state) => state.app.selectedCarId);
   const carName = useAppSelector((state) => state.app.carName);
   const alamat = useAppSelector((state) => state.app.alamat);
@@ -51,12 +50,11 @@ export default function KonfirmasiPemesananCard() {
 
   const onBooking = async () => {
     try {
-      const res = await fetch('http://localhost:3001/booking', {
+      const res = await fetch('http://api.kharisma-rental-center.my.id/booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           user_id: userId,
-          user_fullname: userFullName,
           car_id: selectedCarId,
           car_name: carName,
           alamat: alamat,
@@ -78,7 +76,6 @@ export default function KonfirmasiPemesananCard() {
         throw new Error(errorData?.message || 'Registration failed');
       }
 
-      dispatch(setUserFullname(''));
       dispatch(setCarName(''));
       dispatch(setAlamat(''));
       dispatch(setInstagram(''));
@@ -149,14 +146,6 @@ export default function KonfirmasiPemesananCard() {
                 <div className="md:flex">
                   <div className="border border-transparent border-r-2 md:border-r-gray-200 md:w-2/3">
                     <div className="grid gap-3 md:px-3 py-5 w-full">
-                      <div className="grid gap-1 w-full">
-                        <p className="font-semibold text-lg text-zinc-950">Nama Lengkap</p>
-                        <div className="flex items-center">
-                          <FaCircleDot className="text-blue-600" />
-                          <p className="font-semibold ml-3 text-gray-500 text-sm w-3/4">{userFullName}</p>
-                        </div>
-                      </div>
-                      <hr className="border border-r-2" />
                       <div className="grid gap-1 w-full">
                         <p className="font-semibold text-lg text-zinc-950">Nama Mobil</p>
                         <div className="flex items-center">

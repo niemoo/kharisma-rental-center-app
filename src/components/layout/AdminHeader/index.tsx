@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { RxDashboard } from 'react-icons/rx';
 import { LuClipboardList, LuUsers } from 'react-icons/lu';
 import { FiLogOut } from 'react-icons/fi';
@@ -12,14 +12,17 @@ import Image from 'next/image';
 import { setIsAdmin } from '@/store/appSlice';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useAppDispatch, useAppSelector } from '@/store/store';
+import { Router } from 'next/router';
 
 export default function AdminHeader() {
+  const router = useRouter();
   const currentPath = usePathname();
   const dispatch = useAppDispatch();
   const isAdmin = useAppSelector((state) => state.app.isAdmin);
 
   const handleLogout = () => {
     dispatch(setIsAdmin(false));
+    router.push('/');
   };
 
   return (
@@ -57,15 +60,15 @@ export default function AdminHeader() {
                           <p className="font-semibold">Dashboard</p>
                         </Link>
                         <Link
-                          href="/admin/dashboard/bookings"
+                          href="/admin/dashboard/penyewaan"
                           className={
-                            currentPath == '/admin/dashboard/bookings'
+                            currentPath == '/admin/dashboard/penyewaan'
                               ? 'flex gap-3 items-center py-1 px-5 text-blue-600 border border-transparent border-l-2 border-l-blue-500'
                               : 'flex gap-3 items-center py-1 px-5 text-zinc-700 hover:text-blue-600 border border-transparent hover:border-l-2 hover:border-l-blue-500 transition duration-300 ease-in-out'
                           }
                         >
                           <LuClipboardList className="text-xl" />
-                          <p className="font-semibold">Bookings</p>
+                          <p className="font-semibold">Penyewaan</p>
                         </Link>
                         <Link
                           href="/admin/dashboard/users"

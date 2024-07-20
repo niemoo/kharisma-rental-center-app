@@ -46,7 +46,7 @@ export default function PrintInvoice({ id }: SpecifiedInvoice) {
     if (!id) return; // Ensure userId is available
 
     try {
-      const totalCarsResponse = await fetch(`http://localhost:3001/booking/${id}`, {
+      const totalCarsResponse = await fetch(`http://api.kharisma-rental-center.my.id/booking/${id}`, {
         cache: 'no-cache',
       });
       const totalCars = await totalCarsResponse.json();

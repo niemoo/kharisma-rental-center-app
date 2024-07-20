@@ -12,7 +12,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setBookingId } from '@/store/appSlice';
 
-export default function InvoiceCard() {
+interface SpecifiedMobilProps {
+  id: number;
+}
+
+export default function InvoiceCard({ id }: SpecifiedMobilProps) {
   const router = useRouter();
   const [file, setFile] = useState<File>();
   const [method, setMethod] = useState<string | null>();
@@ -35,19 +39,31 @@ export default function InvoiceCard() {
     if (file) {
       formData.append('image', file);
     }
-
-    axios
-      .put(`http://localhost:3001/booking/pembayaran/${bookingId}`, formData)
-      .then((response) => {
-        toast.success('Bukti Pembayaran Berhasil Diupload');
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      })
-      .finally(() => {
-        dispatch(setBookingId(null));
-        router.push('/profil');
-      });
+    bookingId
+      ? axios
+          .put(`http://api.kharisma-rental-center.my.id/booking/pembayaran/${bookingId}`, formData)
+          .then((response) => {
+            toast.success('Bukti Pembayaran Berhasil Diupload');
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          })
+          .finally(() => {
+            dispatch(setBookingId(null));
+            router.push('/profil');
+          })
+      : axios
+          .put(`http://api.kharisma-rental-center.my.id/booking/pembayaran/${id}`, formData)
+          .then((response) => {
+            toast.success('Bukti Pembayaran Berhasil Diupload');
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          })
+          .finally(() => {
+            dispatch(setBookingId(null));
+            router.push('/profil');
+          });
   };
 
   return (

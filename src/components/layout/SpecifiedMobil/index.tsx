@@ -15,7 +15,7 @@ interface SpecifiedMobilProps {
 }
 
 async function getData(id: number) {
-  const res = await fetch(`http://localhost:3001/cars/${id}`);
+  const res = await fetch(`http://api.kharisma-rental-center.my.id/cars/${id}`);
   const data = await res.json();
   return data;
 }

@@ -4,8 +4,10 @@ import ReduxProvider from '@/store/redux-provider';
 import Navbar from '@/components/layout/Navbar/UserNavbar';
 import Footer from '@/components/layout/Footer';
 import Wave from '../../../public/wave.png';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Ketentuan() {
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 1450px)' });
   return (
     <ReduxProvider>
       <title>Ketentuan | KRC</title>
@@ -13,10 +15,19 @@ export default function Ketentuan() {
       <Navbar />
       <main className="bg-slate-100">
         <div
-          style={{
-            backgroundImage: `url(${Wave.src})`,
-            backgroundRepeat: 'no-repeat',
-          }}
+          style={
+            isLargeScreen
+              ? {
+                  backgroundImage: `url(${Wave.src})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }
+              : {
+                  backgroundImage: `url(${Wave.src})`,
+                  backgroundRepeat: 'no-repeat',
+                }
+          }
         >
           <div className="max-w-screen-md mx-auto md:pb-20 md:pt-5 p-5 grid gap-5">
             <div className="grid gap-5 py-3 px-5 bg-white border border-cyan-600 rounded-lg shadow-lg">

@@ -59,10 +59,10 @@ export default function AdminDashboardCars() {
 
   const fetchData = async () => {
     try {
-      const carsResponse = await fetch('http://localhost:3001/cars', {
+      const carsResponse = await fetch('http://api.kharisma-rental-center.my.id/cars', {
         cache: 'no-cache',
       });
-      const carsCategoryResponse = await fetch('http://localhost:3001/cars-category', {
+      const carsCategoryResponse = await fetch('http://api.kharisma-rental-center.my.id/cars-category', {
         cache: 'no-cache',
       });
 
@@ -109,7 +109,7 @@ export default function AdminDashboardCars() {
     }
 
     axios
-      .put(`http://localhost:3001/admin/cars/edit/${selectedCar?.id}`, formData)
+      .put(`http://api.kharisma-rental-center.my.id/admin/cars/edit/${selectedCar?.id}`, formData)
       .then(() => {
         toast.success('Data Berhasil Terupdate');
       })
@@ -125,7 +125,7 @@ export default function AdminDashboardCars() {
   const handleDelete = async () => {
     if (selectedCar) {
       axios
-        .delete(`http://localhost:3001/cars/${selectedCar.id}`)
+        .delete(`http://api.kharisma-rental-center.my.id/cars/${selectedCar.id}`)
         .then(() => {
           toast.success('Data Berhasil Dihapus');
         })
@@ -167,7 +167,7 @@ export default function AdminDashboardCars() {
                     <TableHead className="px-3 py-2 border text-white">Harga / 12 jam</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Harga / 24 jam</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Harga / Fullday</TableHead>
-                    <TableHead className="px-3 py-2 border text-white">Actions</TableHead>
+                    <TableHead className="px-3 py-2 border text-white">Aksi</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>

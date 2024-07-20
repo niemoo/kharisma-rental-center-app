@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 interface Booking {
   id: number;
   full_name: string;
+  car_name: string;
   tempat_ambil: string;
   start_date: string;
   end_date: string;
@@ -44,27 +45,31 @@ export default async function AdminDashboard() {
   const router = useRouter();
   const isAdmin = useAppSelector((state) => state.app.isAdmin);
 
-  const totalCarsResponse = await fetch('http://localhost:3001/dashboard/cars-total', {
+  const totalCarsResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/cars-total', {
     cache: 'no-cache',
   });
-  const totalUsersResponse = await fetch('http://localhost:3001/dashboard/users-total', {
+  const totalUsersResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/users-total', {
     cache: 'no-cache',
   });
-  const totalBookingsResponse = await fetch('http://localhost:3001/dashboard/bookings-total', {
+  const totalBookingsResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/bookings-total', {
     cache: 'no-cache',
   });
-  const historyBookingsResponse = await fetch('http://localhost:3001/dashboard/bookings/last-history', {
+  const totalProfitResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/profit-total', {
     cache: 'no-cache',
   });
-  const carsResponse = await fetch('http://localhost:3001/dashboard/cars/table', {
+  const historyBookingsResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/bookings/last-history', {
     cache: 'no-cache',
   });
-  const carsBookingResponse = await fetch('http://localhost:3001/dashboard/cars/most-booking-table', {
+  const carsResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/cars/table', {
+    cache: 'no-cache',
+  });
+  const carsBookingResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/cars/most-booking-table', {
     cache: 'no-cache',
   });
   const totalCars = await totalCarsResponse.json();
   const totalUsers = await totalUsersResponse.json();
   const totalBookings = await totalBookingsResponse.json();
+  const totalProfit = await totalProfitResponse.json();
   const historyBookings = await historyBookingsResponse.json();
   const cars = await carsResponse.json();
   const carsBooking = await carsBookingResponse.json();
@@ -79,7 +84,7 @@ export default async function AdminDashboard() {
             <DashboardCard total={totalCars?.data[0].total_cars} text="Total Mobil" icon={<FaCarSide className="text-5xl text-blue-500" />} />
             <DashboardCard total={totalBookings?.data[0].total_bookings} text="Total Sewa" icon={<FaClipboardList className="text-5xl text-blue-500" />} />
             <DashboardCard total={totalUsers?.data[0].total_users} text="Pengguna" icon={<FaUsers className="text-5xl text-blue-500" />} />
-            <DashboardCard total={totalCars?.data[0].total_cars} text="Pendapatan" icon={<MdOutlineTrendingUp className="text-5xl text-blue-500" />} />
+            <DashboardCard total={Number(totalProfit?.data[0].total_sum)} text="Pendapatan" icon={<MdOutlineTrendingUp className="text-5xl text-blue-500" />} />
           </div>
 
           <hr className="my-10 border border-slate-300" />
@@ -145,6 +150,7 @@ export default async function AdminDashboard() {
                 <TableRow className="bg-blue-500">
                   <TableHead className="px-3 py-2 border text-white">No Booking</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Nama Pemesan</TableHead>
+                  <TableHead className="px-3 py-2 border text-white">Nama Mobil</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Tempat Pengambilan</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Tanggal Sewa</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Jam Mulai</TableHead>
@@ -158,6 +164,7 @@ export default async function AdminDashboard() {
                   <TableRow key={booking.id} className="odd:bg-white even:bg-slate-200">
                     <TableCell className="px-3 py-2 border">{booking.id}</TableCell>
                     <TableCell className="px-3 py-2 border">{booking.full_name}</TableCell>
+                    <TableCell className="px-3 py-2 border">{booking.car_name}</TableCell>
                     <TableCell className="px-3 py-2 border">{booking.tempat_ambil}</TableCell>
                     <TableCell className="px-3 py-2 border">{`${new Date(booking.start_date).toLocaleDateString()} - ${new Date(booking.end_date).toLocaleDateString()}`}</TableCell>
                     <TableCell className="px-3 py-2 border">{booking.start_time}</TableCell>

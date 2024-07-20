@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaDownload } from 'react-icons/fa';
+import { GiTakeMyMoney } from 'react-icons/gi';
 
 function formatRupiah(number: number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
@@ -22,7 +23,7 @@ export default function UserHistoryTable() {
     if (!userId) return; // Ensure userId is available
 
     try {
-      const totalCarsResponse = await fetch(`http://localhost:3001/history/booking/${userId}`, {
+      const totalCarsResponse = await fetch(`http://api.kharisma-rental-center.my.id/history/booking/${userId}`, {
         cache: 'no-cache',
       });
       const totalCars = await totalCarsResponse.json();
@@ -46,9 +47,10 @@ export default function UserHistoryTable() {
             <Table className="table-auto w-full border-collapse rounded-b-lg overflow-hidden">
               <TableHeader>
                 <TableRow className="bg-blue-500">
-                  <TableHead className="px-3 py-2 border text-white">Download Invoice</TableHead>
+                  <TableHead className="px-3 py-2 border text-white">Aksi</TableHead>
                   <TableHead className="px-3 py-2 border text-white">No Booking</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Nama Pemesan</TableHead>
+                  <TableHead className="px-3 py-2 border text-white">Nama Mobil</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Tempat Pengambilan</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Alamat Pemesan</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Instagram</TableHead>
@@ -68,14 +70,24 @@ export default function UserHistoryTable() {
               </TableHeader>
               <TableBody>
                 {datas?.map((data) => (
-                  <TableRow key={data.id} className="odd:bg-white even:bg-slate-200">
-                    <TableCell className="px-3 py-2 border">
-                      <Link href={`/print-invoice/${data.id}`} className="text-xl text-sky-700 hover:text-sky-900">
-                        <FaDownload />
-                      </Link>
+                  <TableRow key={data.id} className="odd:bg-white even:bg-slate-200 h-full">
+                    <TableCell className="px-3 py-2 h-full">
+                      <div className="flex flex-col items-center justify-center gap-5 h-full">
+                        <div>
+                          <Link href={`/print-invoice/${data.id}`} className="text-xl text-sky-700 hover:text-sky-900">
+                            <FaDownload />
+                          </Link>
+                        </div>
+                        <div>
+                          <Link href={`/pembayaran/${data.id}`} className="text-xl text-sky-700 hover:text-sky-900">
+                            <GiTakeMyMoney />
+                          </Link>
+                        </div>
+                      </div>
                     </TableCell>
                     <TableCell className="px-3 py-2 border">{data.id}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.full_name}</TableCell>
+                    <TableCell className="px-3 py-2 border">{data.car_name}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.tempat_ambil}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.alamat}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.instagram}</TableCell>

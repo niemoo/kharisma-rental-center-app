@@ -33,7 +33,7 @@ export default function UserProfilCard() {
     if (!userId) return; // Ensure userId is available
 
     try {
-      const userResponse = await fetch(`http://localhost:3001/user/${userId}`, {
+      const userResponse = await fetch(`http://api.kharisma-rental-center.my.id/user/${userId}`, {
         cache: 'no-cache',
       });
       const user = await userResponse.json();
@@ -48,7 +48,7 @@ export default function UserProfilCard() {
   }, [userId]);
 
   const handleSubmitUpdate = async () => {
-    const updateResponse = await fetch(`http://localhost:3001/users/${datas?.id}`, {
+    const updateResponse = await fetch(`http://api.kharisma-rental-center.my.id/users/${datas?.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

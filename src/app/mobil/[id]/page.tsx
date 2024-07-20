@@ -6,12 +6,15 @@ import Navbar from '@/components/layout/Navbar/UserNavbar';
 import MobilBreadcrumb from '@/components/layout/Breadcrumb/mobilBreadcrumb';
 import SpecifiedMobil from '@/components/layout/SpecifiedMobil';
 import Footer from '@/components/layout/Footer';
+import { useMediaQuery } from 'react-responsive';
 
 interface SpecifiedPageProps {
   params: { id: number };
 }
 
 export default function SpecifiedPage({ params: { id } }: SpecifiedPageProps) {
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 1450px)' });
+
   return (
     <ReduxProvider>
       <Navbar />
@@ -22,12 +25,20 @@ export default function SpecifiedPage({ params: { id } }: SpecifiedPageProps) {
             <SpecifiedMobil id={id} />
           </div>
           <div
-            style={{
-              backgroundImage: `url(${Wave2.src})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center bottom',
-              // backgroundSize: 'cover',
-            }}
+            style={
+              isLargeScreen
+                ? {
+                    backgroundImage: `url(${Wave2.src})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center bottom',
+                    backgroundSize: 'cover',
+                  }
+                : {
+                    backgroundImage: `url(${Wave2.src})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center bottom',
+                  }
+            }
             className="absolute top-0 left-0 w-full h-full"
           ></div>
         </div>

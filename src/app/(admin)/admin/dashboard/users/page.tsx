@@ -35,7 +35,7 @@ export default function AdminDashboardUsers() {
 
   const fetchData = async () => {
     try {
-      const usersResponse = await fetch('http://localhost:3001/users', {
+      const usersResponse = await fetch('http://api.kharisma-rental-center.my.id/users', {
         cache: 'no-cache',
       });
 
@@ -59,7 +59,7 @@ export default function AdminDashboardUsers() {
   };
 
   const handleSubmitUpdate = async () => {
-    const updateResponse = await fetch(`http://localhost:3001/users/${selectedUser?.id}`, {
+    const updateResponse = await fetch(`http://api.kharisma-rental-center.my.id/users/${selectedUser?.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -81,7 +81,7 @@ export default function AdminDashboardUsers() {
   };
 
   const handleDelete = async () => {
-    const deleteResponse = await fetch(`http://localhost:3001/users/${selectedUser?.id}`, {
+    const deleteResponse = await fetch(`http://api.kharisma-rental-center.my.id/users/${selectedUser?.id}`, {
       method: 'DELETE',
     });
 
@@ -113,7 +113,7 @@ export default function AdminDashboardUsers() {
                     <TableHead className="px-3 py-2 border text-white">Email</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Username</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Nomor Telepon</TableHead>
-                    <TableHead className="px-3 py-2 border text-white">Actions</TableHead>
+                    <TableHead className="px-3 py-2 border text-white">Aksi</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>

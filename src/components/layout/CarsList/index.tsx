@@ -13,7 +13,7 @@ export default function CarsList() {
   const fetchData = async () => {
     try {
       const response = await axios
-        .get('http://localhost:3001/cars/available', {
+        .get('http://api.kharisma-rental-center.my.id/cars/available', {
           params: {
             start_date: startDate,
             end_date: endDate,

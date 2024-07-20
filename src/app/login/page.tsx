@@ -6,17 +6,28 @@ import LoginForm from '@/components/layout/Form/LoginForm';
 import Navbar from '@/components/layout/Navbar/UserNavbar';
 import Footer from '@/components/layout/Footer';
 import Wave from '../../../public/wave.png';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Login() {
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 1450px)' });
   return (
     <ReduxProvider>
       <Navbar />
       <main className="bg-slate-100">
         <div
-          style={{
-            backgroundImage: `url(${Wave.src})`,
-            backgroundRepeat: 'no-repeat',
-          }}
+          style={
+            isLargeScreen
+              ? {
+                  backgroundImage: `url(${Wave.src})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }
+              : {
+                  backgroundImage: `url(${Wave.src})`,
+                  backgroundRepeat: 'no-repeat',
+                }
+          }
         >
           <div className="max-w-screen-md mx-auto md:py-20 p-5">
             <LoginForm />

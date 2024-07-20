@@ -22,7 +22,6 @@ export default function PemesananForm() {
   const [isInKantor, setIsInKantor] = useState<boolean>(false);
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
 
-  const namaRef = useRef<HTMLInputElement>(null);
   const alamatRef = useRef<HTMLInputElement>(null);
   const instagramRef = useRef<HTMLInputElement>(null);
   const tujuanSewaRef = useRef<HTMLInputElement>(null);
@@ -36,7 +35,7 @@ export default function PemesananForm() {
     if (selectedCarId) {
       const fetchData = async () => {
         try {
-          const res = await fetch(`http://localhost:3001/cars/${selectedCarId}`);
+          const res = await fetch(`http://api.kharisma-rental-center.my.id/cars/${selectedCarId}`);
           if (!res.ok) {
             throw new Error('Failed to fetch data');
           }
@@ -54,7 +53,6 @@ export default function PemesananForm() {
     event.preventDefault();
 
     dispatch(setIsBook(true));
-    dispatch(setUserFullname(namaRef.current?.value ?? ''));
     dispatch(setCarName(carData?.name));
     dispatch(setAlamat(alamatRef.current?.value ?? ''));
     dispatch(setInstagram(instagramRef.current?.value ?? ''));
@@ -107,12 +105,6 @@ export default function PemesananForm() {
                   <hr className="my-5" />
 
                   <form onSubmit={submitForm} className="grid w-full gap-5">
-                    <div className="grid w-full items-center gap-1.5">
-                      <Label htmlFor="nama" className="after:content-['*'] after:ml-0.5 after:text-red-500">
-                        Nama
-                      </Label>
-                      <Input required type="text" id="nama" placeholder="Masukkan nama lengkap" ref={namaRef} />
-                    </div>
                     <div className="grid w-full items-center gap-1.5">
                       <Label htmlFor="alamat" className="after:content-['*'] after:ml-0.5 after:text-red-500">
                         Alamat
@@ -200,13 +192,13 @@ export default function PemesananForm() {
                         <Label htmlFor="jamMulai" className="after:content-['*'] after:ml-0.5 after:text-red-500">
                           Jam Mulai Sewa
                         </Label>
-                        <Input required type="text" id="jamMulai" placeholder="Contoh : 08:00" ref={jamMulaiRef} />
+                        <Input required type="time" id="jamMulai" placeholder="Contoh : 08:00" ref={jamMulaiRef} />
                       </div>
                       <div className="grid w-full items-center gap-1.5">
                         <Label htmlFor="jamAkhir" className="after:content-['*'] after:ml-0.5 after:text-red-500">
                           Jam Akhir Sewa
                         </Label>
-                        <Input required type="text" id="jamAkhir" placeholder="Contoh : 17:00" ref={jamAkhirRef} />
+                        <Input required type="time" id="jamAkhir" placeholder="Contoh : 17:00" ref={jamAkhirRef} />
                       </div>
                     </div>
                     <div className="grid w-full items-center gap-1.5">

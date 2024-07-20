@@ -23,15 +23,15 @@ export default function AdminNavbar() {
           <p className="font-semibold">Dashboard</p>
         </Link>
         <Link
-          href="/admin/dashboard/bookings"
+          href="/admin/dashboard/penyewaan"
           className={
-            currentPath == '/admin/dashboard/bookings'
+            currentPath == '/admin/dashboard/penyewaan'
               ? 'flex gap-3 items-center py-1 px-5 text-blue-600 border border-transparent border-r-2 border-r-blue-500'
               : 'flex gap-3 items-center py-1 px-5 text-zinc-700 hover:text-blue-600 border border-transparent hover:border-r-2 hover:border-r-blue-500 transition duration-300 ease-in-out'
           }
         >
           <LuClipboardList className="text-xl" />
-          <p className="font-semibold">Bookings</p>
+          <p className="font-semibold">Penyewaan</p>
         </Link>
         <Link
           href="/admin/dashboard/users"
