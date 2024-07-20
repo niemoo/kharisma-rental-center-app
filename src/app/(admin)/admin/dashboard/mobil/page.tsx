@@ -181,7 +181,7 @@ export default function AdminDashboardCars() {
                       <TableCell className="px-3 py-2 border">{car.color}</TableCell>
                       <TableCell className="px-3 py-2 border">{car.year}</TableCell>
                       <TableCell className="px-3 py-2 border">
-                        <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${car.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
+                        <Image src={`//api.kharisma-rental-center.my.id/${car.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
                       </TableCell>
                       <TableCell className="px-3 py-2 border">{formatRupiah(car.price_12)}</TableCell>
                       <TableCell className="px-3 py-2 border">{formatRupiah(car.price_24)}</TableCell>

@@ -101,7 +101,7 @@ export default function UserHistoryTable() {
                     <TableCell className="px-3 py-2 border">{formatRupiah(data.amount)}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.payment_method}</TableCell>
                     {/* <TableCell className="px-3 py-2 border">
-                      <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${data.image}`} alt="" width={1000} height={1000} className="mx-auto w-20 h-fit rounded-lg" />
+                      <Image src={`//api.kharisma-rental-center.my.id/${data.image}`} alt="" width={1000} height={1000} className="mx-auto w-20 h-fit rounded-lg" />
                     </TableCell> */}
                     <TableCell className="px-3 py-2 border">{data.payment_status}</TableCell>
                     <TableCell className="px-3 py-2 border">{`${new Date(data.booking_date).toLocaleDateString()}`}</TableCell>

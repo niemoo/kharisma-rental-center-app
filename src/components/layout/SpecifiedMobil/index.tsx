@@ -100,7 +100,7 @@ export default function SpecifiedMobil({ id }: SpecifiedMobilProps) {
         </div>
 
         <div className="md:w-2/3 rounded-lg p-5">
-          <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${carData?.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
+          <Image src={`//api.kharisma-rental-center.my.id/${carData?.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
           <div className="mt-36">
             <hr className="my-5" />
             <Accordion type="single" collapsible>

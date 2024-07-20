@@ -41,7 +41,7 @@ export default function CarsList() {
           key={data?.id}
           carId={data?.id}
           carName={data?.nama_mobil}
-          carImage={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${data?.image}`} // Fixed URL format
+          carImage={`//api.kharisma-rental-center.my.id/${data?.image}`} // Fixed URL format
           carCategory={data?.kategori_mobil}
           carYear={data?.year}
           carCapacity={data?.capacity}
