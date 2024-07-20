@@ -30,7 +30,7 @@ export default function AdminHeader() {
       <div className="flex items-center border-b-2 border-gray-200 p-4">
         <div className="flex items-center gap-1">
           <h2>
-            <img src={logoKRC} alt="KRC Logo" className="h-8 w-auto" />
+            <Image src={logoKRC} alt="KRC Logo" className="h-8 w-auto" />
           </h2>
         </div>
         <h2 className="text-xl font-semibold px-4 ml-5 border-l-2 border-gray-200">Dashboard</h2>
