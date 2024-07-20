@@ -24,10 +24,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative flex items-center h-full max-w-screen-xl mx-auto">
           <div className="md:w-1/2 px-5">
-            <h1 className="text-zinc-100 text-4xl md:text-6xl font-bold z-10">
-              Rental Mobil <span className="text-stone-400">Solo Raya</span>
+            <h1 className="text-zinc-100 text-6xl md:text-6xl font-bold z-10">
+              Kharisma <span className="text-blue-400">Rental Center</span>
             </h1>
-            <p className="my-5 text-zinc-100">Temukan Petualangan Baru dengan Rental Mobil yang Mudah.</p>
+            <p className="my-5 text-zinc-100 text-lg">Perjalanan Anda, kenyamanan kami. Nikmati kemudahan sewa mobil dengan layanan terbaik!</p>
           </div>
         </div>
       </section>

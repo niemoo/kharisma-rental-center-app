@@ -50,11 +50,11 @@ export default function GetDate() {
         <div className="md:flex gap-5 items-center">
           <div className="grid">
             <p className="text-center text-white font-semibold">Mulai Sewa</p>
-            <input required type="date" name="start_date" id="start_date" ref={start_dateRef} onChange={(e) => setStartDateState(e.target.value)} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md" />
+            <input required type="date" name="start_date" id="start_date" ref={start_dateRef} onChange={(e) => setStartDateState(e.target.value)} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md w-full" />
           </div>
           <div className="grid">
             <p className="text-center text-white font-semibold">Akhir Sewa</p>
-            <input required type="date" name="end_date" id="end_date" ref={end_dateRef} onChange={(e) => setEndDateState(e.target.value)} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md" />
+            <input required type="date" name="end_date" id="end_date" ref={end_dateRef} onChange={(e) => setEndDateState(e.target.value)} className="border border-gray-500 rounded-lg px-3 py-1 shadow-md w-full" />
           </div>
         </div>
         <button type="submit" className="w-full flex justify-center mt-5 py-2 bg-blue-600 hover:bg-blue-700 text-white border border-blue-400 rounded-lg shadow-lg">
