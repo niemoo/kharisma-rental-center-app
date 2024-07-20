@@ -40,7 +40,7 @@ export default function Navbar() {
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="flex items-center">
-                <Image src={logoKRC} alt="KRC Logo" className="h-8 w-auto" />
+                <img src={logoKRC} alt="KRC Logo" className="h-8 w-auto" />
               </div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex items-center space-x-4">

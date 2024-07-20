@@ -24,7 +24,7 @@ export default function About() {
                 liburan keluarga, atau acara khusus. Percayakan perjalanan Anda kepada kami dan rasakan kemudahan serta kenyamanan berkendara bersama Kharisma Rental Center.
               </p>
             </div>
-            <Image src={about} alt="" width={500} height={500} className="md:w-1/3 rounded-lg" />
+            <img src={about} alt="" width={500} height={500} className="md:w-1/3 rounded-lg" />
           </div>
         </div>
       </main>

@@ -9,7 +9,7 @@ export default function Footer() {
     <footer className="py-20 bg-sky-950">
       <div className="max-w-screen-md mx-auto md:flex justify-between gap-10 items-stretch">
         <div className="flex justify-center">
-          <Image src={logoKRC} alt="" width={300} height={300} className="h-20 w-fit" />
+          <img src={logoKRC} alt="" width={300} height={300} className="h-20 w-fit" />
         </div>
         <div className="h-full flex flex-col justify-center">
           <h3 className="text-lg font-semibold md:mt-0 mt-10 text-white md:text-left text-center">Perusahaan</h3>

@@ -77,7 +77,7 @@ export default function Home() {
         <div className="md:flex justify-between w-full relative max-w-screen-xl mx-auto md:p-0 p-5">
           <div className="relative">
             <div className="absolute top-0 left-0 w-full h-full bg-sky-400 rounded-xl transform -translate-x-3 translate-y-4 z-0"></div>
-            <Image src={verticalCar} alt="" width={300} height={300} className="h-fit rounded-xl z-10 relative" />
+            <img src={verticalCar} alt="" width={300} height={300} className="h-fit rounded-xl z-10 relative" />
           </div>
           <div className="md:w-2/3">
             <div className="flex items-center md:mt-0 mt-20">
