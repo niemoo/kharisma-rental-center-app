@@ -24,7 +24,7 @@ export default function RegisterForm() {
     setMessage(null);
 
     try {
-      const res = await fetch('http://api.kharisma-rental-center.my.id/register', {
+      const res = await fetch('//api.kharisma-rental-center.my.id/register', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({

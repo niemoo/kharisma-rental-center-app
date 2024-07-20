@@ -41,7 +41,7 @@ export default function InvoiceCard({ id }: SpecifiedMobilProps) {
     }
     bookingId
       ? axios
-          .put(`http://api.kharisma-rental-center.my.id/booking/pembayaran/${bookingId}`, formData)
+          .put(`//api.kharisma-rental-center.my.id/booking/pembayaran/${bookingId}`, formData)
           .then((response) => {
             toast.success('Bukti Pembayaran Berhasil Diupload');
           })
@@ -53,7 +53,7 @@ export default function InvoiceCard({ id }: SpecifiedMobilProps) {
             router.push('/profil');
           })
       : axios
-          .put(`http://api.kharisma-rental-center.my.id/booking/pembayaran/${id}`, formData)
+          .put(`//api.kharisma-rental-center.my.id/booking/pembayaran/${id}`, formData)
           .then((response) => {
             toast.success('Bukti Pembayaran Berhasil Diupload');
           })

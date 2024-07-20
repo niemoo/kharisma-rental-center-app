@@ -59,10 +59,10 @@ export default function AdminDashboardCars() {
 
   const fetchData = async () => {
     try {
-      const carsResponse = await fetch('http://api.kharisma-rental-center.my.id/cars', {
+      const carsResponse = await fetch('//api.kharisma-rental-center.my.id/cars', {
         cache: 'no-cache',
       });
-      const carsCategoryResponse = await fetch('http://api.kharisma-rental-center.my.id/cars-category', {
+      const carsCategoryResponse = await fetch('//api.kharisma-rental-center.my.id/cars-category', {
         cache: 'no-cache',
       });
 
@@ -109,7 +109,7 @@ export default function AdminDashboardCars() {
     }
 
     axios
-      .put(`http://api.kharisma-rental-center.my.id/admin/cars/edit/${selectedCar?.id}`, formData)
+      .put(`//api.kharisma-rental-center.my.id/admin/cars/edit/${selectedCar?.id}`, formData)
       .then(() => {
         toast.success('Data Berhasil Terupdate');
       })
@@ -125,7 +125,7 @@ export default function AdminDashboardCars() {
   const handleDelete = async () => {
     if (selectedCar) {
       axios
-        .delete(`http://api.kharisma-rental-center.my.id/cars/${selectedCar.id}`)
+        .delete(`//api.kharisma-rental-center.my.id/cars/${selectedCar.id}`)
         .then(() => {
           toast.success('Data Berhasil Dihapus');
         })

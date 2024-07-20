@@ -35,7 +35,7 @@ export default function PemesananForm() {
     if (selectedCarId) {
       const fetchData = async () => {
         try {
-          const res = await fetch(`http://api.kharisma-rental-center.my.id/cars/${selectedCarId}`);
+          const res = await fetch(`//api.kharisma-rental-center.my.id/cars/${selectedCarId}`);
           if (!res.ok) {
             throw new Error('Failed to fetch data');
           }

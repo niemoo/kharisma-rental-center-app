@@ -54,7 +54,7 @@ export default function AdminDashboardBookings() {
 
   const fetchData = async () => {
     try {
-      const historyBookingsResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/bookings/all-history', {
+      const historyBookingsResponse = await fetch('//api.kharisma-rental-center.my.id/dashboard/bookings/all-history', {
         cache: 'no-cache',
       });
 
@@ -78,7 +78,7 @@ export default function AdminDashboardBookings() {
   };
 
   const handleSubmitUpdate = async () => {
-    const updateResponse = await fetch(`http://api.kharisma-rental-center.my.id/payment/update-status/${selectedBooking}`, {
+    const updateResponse = await fetch(`//api.kharisma-rental-center.my.id/payment/update-status/${selectedBooking}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -98,7 +98,7 @@ export default function AdminDashboardBookings() {
   };
 
   const handleDelete = async () => {
-    const deleteResponse = await fetch(`http://api.kharisma-rental-center.my.id/bookings/${selectedBooking}`, {
+    const deleteResponse = await fetch(`//api.kharisma-rental-center.my.id/bookings/${selectedBooking}`, {
       method: 'DELETE',
     });
 

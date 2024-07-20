@@ -23,7 +23,7 @@ export default function UserHistoryTable() {
     if (!userId) return; // Ensure userId is available
 
     try {
-      const totalCarsResponse = await fetch(`http://api.kharisma-rental-center.my.id/history/booking/${userId}`, {
+      const totalCarsResponse = await fetch(`//api.kharisma-rental-center.my.id/history/booking/${userId}`, {
         cache: 'no-cache',
       });
       const totalCars = await totalCarsResponse.json();

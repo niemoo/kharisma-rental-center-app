@@ -45,25 +45,25 @@ export default async function AdminDashboard() {
   const router = useRouter();
   const isAdmin = useAppSelector((state) => state.app.isAdmin);
 
-  const totalCarsResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/cars-total', {
+  const totalCarsResponse = await fetch('//api.kharisma-rental-center.my.id/dashboard/cars-total', {
     cache: 'no-cache',
   });
-  const totalUsersResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/users-total', {
+  const totalUsersResponse = await fetch('//api.kharisma-rental-center.my.id/dashboard/users-total', {
     cache: 'no-cache',
   });
-  const totalBookingsResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/bookings-total', {
+  const totalBookingsResponse = await fetch('//api.kharisma-rental-center.my.id/dashboard/bookings-total', {
     cache: 'no-cache',
   });
-  const totalProfitResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/profit-total', {
+  const totalProfitResponse = await fetch('//api.kharisma-rental-center.my.id/dashboard/profit-total', {
     cache: 'no-cache',
   });
-  const historyBookingsResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/bookings/last-history', {
+  const historyBookingsResponse = await fetch('//api.kharisma-rental-center.my.id/dashboard/bookings/last-history', {
     cache: 'no-cache',
   });
-  const carsResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/cars/table', {
+  const carsResponse = await fetch('//api.kharisma-rental-center.my.id/dashboard/cars/table', {
     cache: 'no-cache',
   });
-  const carsBookingResponse = await fetch('http://api.kharisma-rental-center.my.id/dashboard/cars/most-booking-table', {
+  const carsBookingResponse = await fetch('//api.kharisma-rental-center.my.id/dashboard/cars/most-booking-table', {
     cache: 'no-cache',
   });
   const totalCars = await totalCarsResponse.json();
