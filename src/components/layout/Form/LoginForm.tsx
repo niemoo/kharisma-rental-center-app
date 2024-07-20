@@ -19,7 +19,7 @@ export default function LoginForm() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     try {
-      const res = await fetch('//api.kharisma-rental-center.my.id/login', {
+      const res = await fetch('https://api.kharisma-rental-center.my.id/login', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',

@@ -35,7 +35,7 @@ export default function AdminDashboardUsers() {
 
   const fetchData = async () => {
     try {
-      const usersResponse = await fetch('//api.kharisma-rental-center.my.id/users', {
+      const usersResponse = await fetch('https://api.kharisma-rental-center.my.id/users', {
         cache: 'no-cache',
       });
 
@@ -59,7 +59,7 @@ export default function AdminDashboardUsers() {
   };
 
   const handleSubmitUpdate = async () => {
-    const updateResponse = await fetch(`//api.kharisma-rental-center.my.id/users/${selectedUser?.id}`, {
+    const updateResponse = await fetch(`https://api.kharisma-rental-center.my.id/users/${selectedUser?.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -81,7 +81,7 @@ export default function AdminDashboardUsers() {
   };
 
   const handleDelete = async () => {
-    const deleteResponse = await fetch(`//api.kharisma-rental-center.my.id/users/${selectedUser?.id}`, {
+    const deleteResponse = await fetch(`https://api.kharisma-rental-center.my.id/users/${selectedUser?.id}`, {
       method: 'DELETE',
     });
 

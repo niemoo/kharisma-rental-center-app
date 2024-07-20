@@ -59,10 +59,10 @@ export default function AdminDashboardCars() {
 
   const fetchData = async () => {
     try {
-      const carsResponse = await fetch('//api.kharisma-rental-center.my.id/cars', {
+      const carsResponse = await fetch('https://api.kharisma-rental-center.my.id/cars', {
         cache: 'no-cache',
       });
-      const carsCategoryResponse = await fetch('//api.kharisma-rental-center.my.id/cars-category', {
+      const carsCategoryResponse = await fetch('https://api.kharisma-rental-center.my.id/cars-category', {
         cache: 'no-cache',
       });
 
@@ -109,7 +109,7 @@ export default function AdminDashboardCars() {
     }
 
     axios
-      .put(`//api.kharisma-rental-center.my.id/admin/cars/edit/${selectedCar?.id}`, formData)
+      .put(`https://api.kharisma-rental-center.my.id/admin/cars/edit/${selectedCar?.id}`, formData)
       .then(() => {
         toast.success('Data Berhasil Terupdate');
       })
@@ -125,7 +125,7 @@ export default function AdminDashboardCars() {
   const handleDelete = async () => {
     if (selectedCar) {
       axios
-        .delete(`//api.kharisma-rental-center.my.id/cars/${selectedCar.id}`)
+        .delete(`https://api.kharisma-rental-center.my.id/cars/${selectedCar.id}`)
         .then(() => {
           toast.success('Data Berhasil Dihapus');
         })
@@ -181,7 +181,7 @@ export default function AdminDashboardCars() {
                       <TableCell className="px-3 py-2 border">{car.color}</TableCell>
                       <TableCell className="px-3 py-2 border">{car.year}</TableCell>
                       <TableCell className="px-3 py-2 border">
-                        <Image src={`//api.kharisma-rental-center.my.id/${car.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
+                        <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${car.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
                       </TableCell>
                       <TableCell className="px-3 py-2 border">{formatRupiah(car.price_12)}</TableCell>
                       <TableCell className="px-3 py-2 border">{formatRupiah(car.price_24)}</TableCell>

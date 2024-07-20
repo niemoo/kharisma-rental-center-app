@@ -50,7 +50,7 @@ export default function AddCarsData({ categoryData }: { categoryData: Category[]
     }
 
     axios
-      .post(`//api.kharisma-rental-center.my.id/admin/cars`, formData)
+      .post(`https://api.kharisma-rental-center.my.id/admin/cars`, formData)
       .then(() => {
         toast.success('Data Berhasil Ditambah');
       })

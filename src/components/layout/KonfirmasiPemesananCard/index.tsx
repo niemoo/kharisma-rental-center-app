@@ -50,7 +50,7 @@ export default function KonfirmasiPemesananCard() {
 
   const onBooking = async () => {
     try {
-      const res = await fetch('//api.kharisma-rental-center.my.id/booking', {
+      const res = await fetch('https://api.kharisma-rental-center.my.id/booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

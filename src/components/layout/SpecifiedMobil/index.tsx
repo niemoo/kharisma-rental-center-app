@@ -15,7 +15,7 @@ interface SpecifiedMobilProps {
 }
 
 async function getData(id: number) {
-  const res = await fetch(`//api.kharisma-rental-center.my.id/cars/${id}`);
+  const res = await fetch(`https://api.kharisma-rental-center.my.id/cars/${id}`);
   const data = await res.json();
   return data;
 }
@@ -100,7 +100,7 @@ export default function SpecifiedMobil({ id }: SpecifiedMobilProps) {
         </div>
 
         <div className="md:w-2/3 rounded-lg p-5">
-          <Image src={`//api.kharisma-rental-center.my.id/${carData?.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
+          <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${carData?.image}`} alt="" width={5000} height={5000} className="mx-auto w-96 h-fit rounded-lg" />
           <div className="mt-36">
             <hr className="my-5" />
             <Accordion type="single" collapsible>

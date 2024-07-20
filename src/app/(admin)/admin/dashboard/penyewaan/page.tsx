@@ -54,7 +54,7 @@ export default function AdminDashboardBookings() {
 
   const fetchData = async () => {
     try {
-      const historyBookingsResponse = await fetch('//api.kharisma-rental-center.my.id/dashboard/bookings/all-history', {
+      const historyBookingsResponse = await fetch('https://api.kharisma-rental-center.my.id/dashboard/bookings/all-history', {
         cache: 'no-cache',
       });
 
@@ -78,7 +78,7 @@ export default function AdminDashboardBookings() {
   };
 
   const handleSubmitUpdate = async () => {
-    const updateResponse = await fetch(`//api.kharisma-rental-center.my.id/payment/update-status/${selectedBooking}`, {
+    const updateResponse = await fetch(`https://api.kharisma-rental-center.my.id/payment/update-status/${selectedBooking}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -98,7 +98,7 @@ export default function AdminDashboardBookings() {
   };
 
   const handleDelete = async () => {
-    const deleteResponse = await fetch(`//api.kharisma-rental-center.my.id/bookings/${selectedBooking}`, {
+    const deleteResponse = await fetch(`https://api.kharisma-rental-center.my.id/bookings/${selectedBooking}`, {
       method: 'DELETE',
     });
 
@@ -244,7 +244,7 @@ export default function AdminDashboardBookings() {
                       <TableCell className="px-3 py-2 border">{formatRupiah(booking.amount)}</TableCell>
                       <TableCell className="px-3 py-2 border">{booking.payment_method}</TableCell>
                       <TableCell className="px-3 py-2 border">
-                        <Image src={`//api.kharisma-rental-center.my.id/${booking.image}`} alt="" width={1000} height={1000} className="mx-auto w-20 h-fit rounded-lg" />
+                        <Image src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${booking.image}`} alt="" width={1000} height={1000} className="mx-auto w-20 h-fit rounded-lg" />
                       </TableCell>
                       <TableCell className="px-3 py-2 border">{booking.payment_status}</TableCell>
                       <TableCell className="px-3 py-2 border">{`${new Date(booking.booking_date).toLocaleDateString()}`}</TableCell>

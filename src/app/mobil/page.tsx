@@ -18,7 +18,7 @@ export default function Mobil() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('//api.kharisma-rental-center.my.id/cars', {
+        const res = await fetch('https://api.kharisma-rental-center.my.id/cars', {
           cache: 'no-cache',
         });
         if (!res.ok) {
@@ -65,7 +65,7 @@ export default function Mobil() {
                   key={data?.id}
                   carId={data?.id}
                   carName={data?.nama_mobil}
-                  carImage={`//api.kharisma-rental-center.my.id/${data?.image}`} // Fixed URL format
+                  carImage={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${data?.image}`} // Fixed URL format
                   carCategory={data?.kategori_mobil}
                   carYear={data?.year}
                   carCapacity={data?.capacity}

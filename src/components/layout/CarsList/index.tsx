@@ -13,7 +13,7 @@ export default function CarsList() {
   const fetchData = async () => {
     try {
       const response = await axios
-        .get('//api.kharisma-rental-center.my.id/cars/available', {
+        .get('https://api.kharisma-rental-center.my.id/cars/available', {
           params: {
             start_date: startDate,
             end_date: endDate,
@@ -41,7 +41,7 @@ export default function CarsList() {
           key={data?.id}
           carId={data?.id}
           carName={data?.nama_mobil}
-          carImage={`//api.kharisma-rental-center.my.id/${data?.image}`} // Fixed URL format
+          carImage={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${data?.image}`} // Fixed URL format
           carCategory={data?.kategori_mobil}
           carYear={data?.year}
           carCapacity={data?.capacity}

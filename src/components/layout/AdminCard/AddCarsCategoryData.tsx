@@ -14,7 +14,7 @@ export default function AddCarsCategoryData() {
 
   const handleSubmit = async () => {
     axios
-      .post(`//api.kharisma-rental-center.my.id/admin/cars/category`, {
+      .post(`https://api.kharisma-rental-center.my.id/admin/cars/category`, {
         name: nameRef.current?.value,
       })
       .then(() => {
