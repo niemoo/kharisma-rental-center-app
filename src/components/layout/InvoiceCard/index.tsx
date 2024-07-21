@@ -10,18 +10,15 @@ import { Input } from '@/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { setBookingId } from '@/store/appSlice';
+import { setBookingId, setTotalPrice } from '@/store/appSlice';
 
-interface SpecifiedMobilProps {
-  id: number;
-}
-
-export default function InvoiceCard({ id }: SpecifiedMobilProps) {
+export default function InvoiceCard() {
   const router = useRouter();
   const [file, setFile] = useState<File>();
   const [method, setMethod] = useState<string | null>();
   const dispatch = useAppDispatch();
   const bookingId = useAppSelector((state) => state.app.bookingId);
+  const totalPrice = useAppSelector((state) => state.app.totalPrice);
 
   const amountRef = useRef<HTMLInputElement>(null);
 
@@ -39,31 +36,19 @@ export default function InvoiceCard({ id }: SpecifiedMobilProps) {
     if (file) {
       formData.append('image', file);
     }
-    bookingId
-      ? axios
-          .put(`https://api.kharisma-rental-center.my.id/booking/pembayaran/${bookingId}`, formData)
-          .then((response) => {
-            toast.success('Bukti Pembayaran Berhasil Diupload');
-          })
-          .catch((err) => {
-            toast.error(err.message);
-          })
-          .finally(() => {
-            dispatch(setBookingId(null));
-            router.push('/profil');
-          })
-      : axios
-          .put(`https://api.kharisma-rental-center.my.id/booking/pembayaran/${id}`, formData)
-          .then((response) => {
-            toast.success('Bukti Pembayaran Berhasil Diupload');
-          })
-          .catch((err) => {
-            toast.error(err.message);
-          })
-          .finally(() => {
-            dispatch(setBookingId(null));
-            router.push('/profil');
-          });
+    axios
+      .put(`https://api.kharisma-rental-center.my.id/booking/pembayaran/${bookingId}`, formData)
+      .then((response) => {
+        toast.success('Bukti Pembayaran Berhasil Diupload');
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      })
+      .finally(() => {
+        dispatch(setBookingId(null));
+        dispatch(setTotalPrice(''));
+        router.push('/profil');
+      });
   };
 
   return (
@@ -90,6 +75,10 @@ export default function InvoiceCard({ id }: SpecifiedMobilProps) {
             <AccordionContent>085962362581 / KHARISMA ABDUL YAYAN</AccordionContent>
           </AccordionItem>
         </Accordion>
+        <div className="flex justify-between my-5">
+          <p className="font-semibold">Total Uang yang Harus Dibayar</p>
+          <p className="font-semibold">totalPrice: {parseInt(totalPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
+        </div>
         <form action="" onSubmit={handleUpdatePembayaran}>
           <div className="grid gap-5 mt-5">
             <Label>Jumlah Uang yang Dibayar</Label>

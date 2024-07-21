@@ -7,11 +7,7 @@ import Wave from '../../../../public/wave.png';
 import Footer from '@/components/layout/Footer';
 import { useMediaQuery } from 'react-responsive';
 
-interface SpecifiedPageProps {
-  params: { id: number };
-}
-
-export default function Pembayaran({ params: { id } }: SpecifiedPageProps) {
+export default function Pembayaran() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1450px)' });
   return (
     <ReduxProvider>
@@ -33,7 +29,7 @@ export default function Pembayaran({ params: { id } }: SpecifiedPageProps) {
           }
         >
           <div className="max-w-screen-sm mx-auto md:py-10 p-5">
-            <InvoiceCard id={id} />
+            <InvoiceCard />
           </div>
         </div>
       </main>

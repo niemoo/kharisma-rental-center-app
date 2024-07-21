@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { useAppSelector } from '@/store/store';
+import { useAppDispatch, useAppSelector } from '@/store/store';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaDownload } from 'react-icons/fa';
 import { GiTakeMyMoney } from 'react-icons/gi';
+import { setBookingId } from '@/store/appSlice';
 
 function formatRupiah(number: number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
@@ -16,6 +17,7 @@ function formatRupiah(number: number) {
 export default function UserHistoryTable() {
   const router = useRouter();
   const [datas, setData] = useState<any[]>([]);
+  const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.app.userId);
   const isLogin = useAppSelector((state) => state.app.isLogin);
 
@@ -37,6 +39,13 @@ export default function UserHistoryTable() {
   useEffect(() => {
     fetchData();
   }, [userId]); // Fetch data only when userId is available
+
+  const handlePembayaran = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const bookId = event.currentTarget.getAttribute('data-book-id');
+    if (bookId) {
+      dispatch(setBookingId(Number(bookId)));
+    }
+  };
 
   return (
     <>
@@ -63,7 +72,6 @@ export default function UserHistoryTable() {
                   <TableHead className="px-3 py-2 border text-white">Total Tagihan</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Terbayar</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Metode Pembayaran</TableHead>
-                  {/* <TableHead className="px-3 py-2 border text-white">Bukti Pembayaran</TableHead> */}
                   <TableHead className="px-3 py-2 border text-white">Status</TableHead>
                   <TableHead className="px-3 py-2 border text-white">Tanggal Pesan</TableHead>
                 </TableRow>
@@ -79,7 +87,7 @@ export default function UserHistoryTable() {
                           </Link>
                         </div>
                         <div>
-                          <Link href={`/pembayaran/${data.id}`} className="text-xl text-sky-700 hover:text-sky-900">
+                          <Link href={`/pembayaran/`} onClick={handlePembayaran} className="text-xl text-sky-700 hover:text-sky-900">
                             <GiTakeMyMoney />
                           </Link>
                         </div>
@@ -100,9 +108,6 @@ export default function UserHistoryTable() {
                     <TableCell className="px-3 py-2 border">{formatRupiah(data.total_price)}</TableCell>
                     <TableCell className="px-3 py-2 border">{formatRupiah(data.amount)}</TableCell>
                     <TableCell className="px-3 py-2 border">{data.payment_method}</TableCell>
-                    {/* <TableCell className="px-3 py-2 border">
-                      <img src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${data.image}`} alt="" width={1000} height={1000} className="mx-auto w-20 h-fit rounded-lg" />
-                    </TableCell> */}
                     <TableCell className="px-3 py-2 border">{data.payment_status}</TableCell>
                     <TableCell className="px-3 py-2 border">{`${new Date(data.booking_date).toLocaleDateString()}`}</TableCell>
                   </TableRow>

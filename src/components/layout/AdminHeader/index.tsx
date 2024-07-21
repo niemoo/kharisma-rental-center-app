@@ -92,8 +92,9 @@ export default function AdminHeader() {
                           <FaCarTunnel className="text-xl" />
                           <p className="font-semibold">Mobil</p>
                         </Link>
-                        <button className="md:block hidden px-4 py-2 text-white bg-red-500 hover:bg-red-700 rounded-lg transition duration-300 ease-in-out" onClick={handleLogout}>
+                        <button className="flex gap-3 items-center py-1 px-5 text-zinc-700 hover:text-blue-600 border border-transparent hover:border-l-2 hover:border-l-blue-500 transition duration-300 ease-in-out" onClick={handleLogout}>
                           <FiLogOut />
+                          <p>Logout</p>
                         </button>
                       </ul>
                     </nav>

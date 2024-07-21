@@ -82,7 +82,6 @@ export default function KonfirmasiPemesananCard() {
       dispatch(setTujuanSewa(''));
       dispatch(setRute(''));
       dispatch(setJaminan(''));
-      dispatch(setTotalPrice(''));
       dispatch(setStartTime(''));
       dispatch(setEndTime(''));
       dispatch(setStartDate(''));
@@ -96,7 +95,7 @@ export default function KonfirmasiPemesananCard() {
 
       dispatch(setBookingId(response.data.booking_id));
       toast.success('Pemesanan Berhasil');
-      router.push(`/pembayaran/${bookingId}`);
+      router.push(`/pembayaran/`);
     } catch (error) {
       console.error('Error : ', error);
     }

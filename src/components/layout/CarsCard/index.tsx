@@ -40,7 +40,7 @@ export default function CarsCard({ carId, carName, carImage, carCategory, carYea
 
               <div className="flex items-center gap-2">
                 <Tb12Hours className="text-3xl text-cyan-700" />
-                <h4>Rp {carPrice_12}</h4>
+                <h4>Rp {carPrice_12.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</h4>
               </div>
             </div>
 
@@ -52,7 +52,7 @@ export default function CarsCard({ carId, carName, carImage, carCategory, carYea
 
               <div className="flex items-center gap-2">
                 <Tb24Hours className="text-3xl text-cyan-700" />
-                <h4>Rp {carPrice_24}</h4>
+                <h4>Rp {carPrice_24.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</h4>
               </div>
             </div>
           </div>

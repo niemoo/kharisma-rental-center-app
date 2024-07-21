@@ -7,17 +7,28 @@ import UserProfilCard from '@/components/layout/UserProfilCard';
 import Wave from '../../../public/wave.png';
 import { BiSolidHelpCircle } from 'react-icons/bi';
 import Footer from '@/components/layout/Footer';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Profil() {
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 1450px)' });
   return (
     <ReduxProvider>
       <Navbar />
       <main className="bg-slate-100">
         <div
-          style={{
-            backgroundImage: `url(${Wave.src})`,
-            backgroundRepeat: 'no-repeat',
-          }}
+          style={
+            isLargeScreen
+              ? {
+                  backgroundImage: `url(${Wave.src})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }
+              : {
+                  backgroundImage: `url(${Wave.src})`,
+                  backgroundRepeat: 'no-repeat',
+                }
+          }
         >
           <div className="md:pb-20 md:pt-5 p-5">
             <div className="mt-10">
