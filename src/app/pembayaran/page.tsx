@@ -3,7 +3,7 @@
 import ReduxProvider from '@/store/redux-provider';
 import Navbar from '@/components/layout/Navbar/UserNavbar';
 import InvoiceCard from '@/components/layout/InvoiceCard';
-import Wave from '../../../../public/wave.png';
+import Wave from '../../../public/wave.png';
 import Footer from '@/components/layout/Footer';
 import { useMediaQuery } from 'react-responsive';
 
