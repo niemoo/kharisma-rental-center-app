@@ -81,46 +81,6 @@ export default function AddCarsData({ categoryData }: { categoryData: Category[]
                   <Input type="text" placeholder="Masukkan Nama Mobil" ref={namaMobilRef} />
                 </div>
                 <div className="grid gap-2 mb-4 w-1/2">
-                  <Label className="block text-zinc-900">Transmisi</Label>
-                  <Input type="text" placeholder="Transmisi Mobil" ref={transmissionRef} />
-                </div>
-              </div>
-              <div className="flex items-center gap-5">
-                <div className="grid gap-2 mb-4 w-1/2 mt-5">
-                  <Label className="block text-zinc-900">Kapasitas</Label>
-                  <Input type="text" placeholder="Kapasitas Mobil" ref={capacityRef} />
-                </div>
-                <div className="grid gap-2 mb-4 w-1/2 mt-5">
-                  <Label className="block text-zinc-900">Warna</Label>
-                  <Input type="text" placeholder="Warna Mobil" ref={colorRef} />
-                </div>
-              </div>
-              <div className="flex items-center gap-5">
-                <div className="grid gap-2 mb-4 w-1/2 mt-5">
-                  <Label className="block text-zinc-900">Tahun</Label>
-                  <Input type="text" placeholder="Tahun Mobil" ref={yearRef} />
-                </div>
-                <div className="grid gap-2 mb-4 w-1/2 mt-5">
-                  <Label className="block text-zinc-900">Harga 12 Jam</Label>
-                  <Input type="number" ref={price12Ref} />
-                </div>
-              </div>
-              <div className="flex items-center gap-5">
-                <div className="grid gap-2 mb-4 w-1/2 mt-5">
-                  <Label className="block text-zinc-900">Harga 24 Jam</Label>
-                  <Input type="number" ref={price24Ref} />
-                </div>
-                <div className="grid gap-2 mb-4 w-1/2 mt-5">
-                  <Label className="block text-zinc-900">Harga Fullday</Label>
-                  <Input type="number" ref={priceFulldayRef} />
-                </div>
-              </div>
-              <div className="flex items-center gap-5">
-                <div className="grid gap-2 mb-4 w-1/2">
-                  <Label className="block text-zinc-900">Gambar</Label>
-                  <input type="file" onChange={handleFile} name="file" />
-                </div>
-                <div className="grid gap-2 mb-4 w-1/2">
                   <Label className="block text-zinc-900">Kategori Mobil</Label>
                   <Select onValueChange={(value) => setCategory(Number(value))} required>
                     <SelectTrigger className="w-full">
@@ -137,6 +97,46 @@ export default function AddCarsData({ categoryData }: { categoryData: Category[]
                       </SelectGroup>
                     </SelectContent>
                   </Select>
+                </div>
+              </div>
+              <div className="flex items-center gap-5">
+                <div className="grid gap-2 mb-4 w-1/2">
+                  <Label className="block text-zinc-900">Transmisi</Label>
+                  <Input type="text" placeholder="Transmisi Mobil" ref={transmissionRef} />
+                </div>
+                <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                  <Label className="block text-zinc-900">Kapasitas</Label>
+                  <Input type="text" placeholder="Kapasitas Mobil" ref={capacityRef} />
+                </div>
+              </div>
+              <div className="flex items-center gap-5">
+                <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                  <Label className="block text-zinc-900">Warna</Label>
+                  <Input type="text" placeholder="Warna Mobil" ref={colorRef} />
+                </div>
+                <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                  <Label className="block text-zinc-900">Tahun</Label>
+                  <Input type="text" placeholder="Tahun Mobil" ref={yearRef} />
+                </div>
+              </div>
+              <div className="flex items-center gap-5">
+                <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                  <Label className="block text-zinc-900">Harga 12 Jam</Label>
+                  <Input type="number" ref={price12Ref} />
+                </div>
+                <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                  <Label className="block text-zinc-900">Harga 24 Jam</Label>
+                  <Input type="number" ref={price24Ref} />
+                </div>
+              </div>
+              <div className="flex items-center gap-5">
+                <div className="grid gap-2 mb-4 w-1/2 mt-5">
+                  <Label className="block text-zinc-900">Harga Fullday</Label>
+                  <Input type="number" ref={priceFulldayRef} />
+                </div>
+                <div className="grid gap-2 mb-4 w-1/2">
+                  <Label className="block text-zinc-900">Gambar</Label>
+                  <input type="file" onChange={handleFile} name="file" />
                 </div>
               </div>
             </AlertDialogDescription>

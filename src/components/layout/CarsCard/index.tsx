@@ -4,6 +4,7 @@ import { FaUsers } from 'react-icons/fa';
 import { TbManualGearbox } from 'react-icons/tb';
 import { Tb12Hours } from 'react-icons/tb';
 import { Tb24Hours } from 'react-icons/tb';
+import { LuAlertCircle } from 'react-icons/lu';
 
 interface CarsCardProps {
   carId: number;
@@ -29,6 +30,10 @@ export default function CarsCard({ carId, carName, carImage, carCategory, carYea
           <h4 className="text-sm text-zinc-500">
             {carCategory} | {carYear}
           </h4>
+          <div className="flex gap-3 items-center mt-2">
+            <LuAlertCircle className="text-zinc-500" />
+            <h4 className="text-sm text-zinc-500">Warna mobil tidak sama dengan yang ada pada gambar.</h4>
+          </div>
           <hr className="my-3 border border-cyan-400" />
 
           <div className="mb-5">
@@ -40,7 +45,7 @@ export default function CarsCard({ carId, carName, carImage, carCategory, carYea
 
               <div className="flex items-center gap-2">
                 <Tb12Hours className="text-3xl text-cyan-700" />
-                <h4>Rp {carPrice_12.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</h4>
+                <h4>{carPrice_12.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</h4>
               </div>
             </div>
 
@@ -52,7 +57,7 @@ export default function CarsCard({ carId, carName, carImage, carCategory, carYea
 
               <div className="flex items-center gap-2">
                 <Tb24Hours className="text-3xl text-cyan-700" />
-                <h4>Rp {carPrice_24.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</h4>
+                <h4>{carPrice_24.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</h4>
               </div>
             </div>
           </div>

@@ -75,9 +75,9 @@ export default function InvoiceCard() {
             <AccordionContent>085962362581 / KHARISMA ABDUL YAYAN</AccordionContent>
           </AccordionItem>
         </Accordion>
-        <div className="flex justify-between my-5">
-          <p className="font-semibold">Total Uang yang Harus Dibayar</p>
-          <p className="font-semibold">totalPrice: {parseInt(totalPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
+        <div className="grid gap-2 my-5">
+          <Label>Total Uang yang Harus Dibayar</Label>
+          <p className="text-sm">{parseInt(totalPrice).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
         </div>
         <form action="" onSubmit={handleUpdatePembayaran}>
           <div className="grid gap-5 mt-5">

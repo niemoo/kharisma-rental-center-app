@@ -9,6 +9,7 @@ import { BsFillFuelPumpFill } from 'react-icons/bs';
 import { MdMoreTime } from 'react-icons/md';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import AddToCartButton from '@/components/layout/Button/AddToCartButton';
+import { LuAlertCircle } from 'react-icons/lu';
 
 interface SpecifiedMobilProps {
   id: number;
@@ -100,6 +101,10 @@ export default function SpecifiedMobil({ id }: SpecifiedMobilProps) {
         </div>
 
         <div className="md:w-2/3 rounded-lg p-5">
+          <div className="flex gap-3 items-center mt-2">
+            <LuAlertCircle className="text-blue-900" />
+            <h4 className="text-sm text-blue-900 underline">Warna mobil tidak sama dengan yang ada pada gambar.</h4>
+          </div>
           <img src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${carData?.image}`} alt="" width={500} height={500} className="mx-auto w-96 h-fit rounded-lg" />
           <div className="mt-36">
             <hr className="my-5" />
