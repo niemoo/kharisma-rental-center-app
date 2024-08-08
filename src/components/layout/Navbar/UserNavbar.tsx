@@ -95,7 +95,7 @@ export default function Navbar() {
                             <Menu.Item>
                               {({ active }) => (
                                 <button onClick={handleLogout} className={classNames(active ? 'bg-gray-100 w-full text-center' : '', 'w-full text-center block px-4 py-2 text-sm text-gray-700')}>
-                                  Sign out
+                                  Keluar
                                 </button>
                               )}
                             </Menu.Item>

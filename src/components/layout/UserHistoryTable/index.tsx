@@ -86,11 +86,15 @@ export default function UserHistoryTable() {
                             <FaDownload />
                           </Link>
                         </div>
-                        <div>
-                          <Link href={`/pembayaran/`} onClick={handlePembayaran} className="text-xl text-sky-700 hover:text-sky-900">
-                            <GiTakeMyMoney />
-                          </Link>
-                        </div>
+                        {data.amount > 0 ? (
+                          ''
+                        ) : (
+                          <div>
+                            <Link href={`/pembayaran/`} onClick={handlePembayaran} className="text-xl text-sky-700 hover:text-sky-900">
+                              <GiTakeMyMoney />
+                            </Link>
+                          </div>
+                        )}
                       </div>
                     </TableCell>
                     <TableCell className="px-3 py-2 border">{data.id}</TableCell>
