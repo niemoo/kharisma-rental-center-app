@@ -95,7 +95,7 @@ export default function InvoiceCard() {
                   <SelectLabel>Metode Pembayaran</SelectLabel>
 
                   <SelectItem value="BRI">BRI</SelectItem>
-                  <SelectItem value="Gopay">Dana</SelectItem>
+                  <SelectItem value="Dana">Dana</SelectItem>
                   <SelectItem value="Shopee Pay">Shopee Pay</SelectItem>
                 </SelectGroup>
               </SelectContent>
