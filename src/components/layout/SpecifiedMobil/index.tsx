@@ -118,7 +118,7 @@ export default function SpecifiedMobil({ id }: SpecifiedMobilProps) {
                   </div>
                   <div className="flex items-center gap-3 mt-5">
                     <MdMoreTime className="text-3xl" />
-                    <h4>Jika melewati waktu yang ditentukan, akan ada biaya tambahan sebesar Rp 30.000 per jam.</h4>
+                    <h4>Jika melewati waktu yang ditentukan, akan ada biaya tambahan sebesar Rp 30.000 / jam.</h4>
                   </div>
                 </AccordionContent>
               </AccordionItem>

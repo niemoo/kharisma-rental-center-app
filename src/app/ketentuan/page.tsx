@@ -45,7 +45,7 @@ export default function Ketentuan() {
               <div>
                 <p>1. Wajib mengembalikan bahan bakar seperti pada saat pengambilan mobil. Jika bahan bakar lebih sedikit dari saat pengambilan mobil, maka akan dikenakan biaya tambahan.</p>
                 <p>2. Wajib mengembalikan mobil dalam kondisi yang sama dengan kondisi saat mobil diterima.</p>
-                <p>3. Pastikan waktu pengambilan dan pengembalian mobil sudah sesuai. Apabila melebihi waktu pengembalian mobil, maka akan dikenakan denda sebesar Rp 30.000</p>
+                <p>3. Pastikan waktu pengambilan dan pengembalian mobil sudah sesuai. Apabila melebihi waktu pengembalian mobil, maka akan dikenakan denda sebesar Rp 30.000 / jam</p>
                 <p>4. Wajib bertanggung jawab untuk biaya penggantian atau perbaikan atas kehilangan atau kerusakan terhadap STNK, kunci mobil, aksesoris, dan alat mobil</p>
                 <p>5. Wajib bertanggung jawab atas semua denda parkir, lalu lintas (termasuk tilang elektronik), dan lainnya yang terjadi akibat pelanggaran hukum selama periode rental.</p>
                 <p></p>

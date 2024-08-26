@@ -135,7 +135,7 @@ export default async function AdminDashboard() {
               <DashboardCard total={totalCars?.data[0].total_cars} text="Total Mobil" icon={<FaCarSide className="text-5xl text-blue-500" />} />
               <DashboardCard total={totalBookings?.data[0].total_bookings} text="Total Sewa" icon={<FaClipboardList className="text-5xl text-blue-500" />} />
               <DashboardCard total={totalUsers?.data[0].total_users} text="Pengguna" icon={<FaUsers className="text-5xl text-blue-500" />} />
-              <DashboardCard total={Number(totalProfit?.data[0].total_sum)} text="Pendapatan" icon={<MdOutlineTrendingUp className="text-5xl text-blue-500" />} />
+              <DashboardCard total={Number(totalProfit?.data.total_profit)} text="Pendapatan" icon={<MdOutlineTrendingUp className="text-5xl text-blue-500" />} />
             </div>
 
             <hr className="my-10 border border-slate-300" />

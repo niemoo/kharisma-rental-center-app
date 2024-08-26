@@ -22,6 +22,7 @@ interface Cars {
   kategori_mobil: string;
   transmission: string;
   capacity: string;
+  plat_nomor: string;
   color: string;
   year: string;
   image: string;
@@ -161,6 +162,7 @@ export default function AdminDashboardCars() {
                     <TableHead className="px-3 py-2 border text-white">Kategori Mobil</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Transmisi</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Kapasitas</TableHead>
+                    <TableHead className="px-3 py-2 border text-white">Nomor Plat</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Warna</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Tahun</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Gambar</TableHead>
@@ -178,6 +180,7 @@ export default function AdminDashboardCars() {
                       <TableCell className="px-3 py-2 border">{car.kategori_mobil}</TableCell>
                       <TableCell className="px-3 py-2 border">{car.transmission}</TableCell>
                       <TableCell className="px-3 py-2 border">{car.capacity}</TableCell>
+                      <TableCell className="px-3 py-2 border">{car.plat_nomor}</TableCell>
                       <TableCell className="px-3 py-2 border">{car.color}</TableCell>
                       <TableCell className="px-3 py-2 border">{car.year}</TableCell>
                       <TableCell className="px-3 py-2 border">

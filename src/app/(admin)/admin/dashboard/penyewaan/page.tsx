@@ -24,6 +24,7 @@ interface Booking {
   rute: string;
   jaminan: string;
   image: string;
+  denda: number;
   tempat_ambil: string;
   total_price: number;
   start_date: string;
@@ -45,6 +46,7 @@ export default function AdminDashboardBookings() {
   const [paymentStatus, setPaymentStatus] = useState<String | null>(null);
   const [datas, setDatas] = useState<Booking[]>([]);
   const amountRef = useRef<HTMLInputElement>(null);
+  const dendaRef = useRef<HTMLInputElement>(null);
   const start_dateRef = useRef<HTMLInputElement>(null);
   const end_dateRef = useRef<HTMLInputElement>(null);
   const start_timeRef = useRef<HTMLInputElement>(null);
@@ -87,6 +89,7 @@ export default function AdminDashboardBookings() {
         start_time: start_timeRef.current?.value,
         end_time: end_timeRef.current?.value,
         amount: amountRef.current?.value,
+        denda: dendaRef.current?.value,
         status: paymentStatus,
       }),
     });
@@ -137,6 +140,7 @@ export default function AdminDashboardBookings() {
                     <TableHead className="px-3 py-2 border text-white">Jam Kembali</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Total Tagihan</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Terbayar</TableHead>
+                    <TableHead className="px-3 py-2 border text-white">Denda</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Metode Pembayaran</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Bukti Pembayaran</TableHead>
                     <TableHead className="px-3 py-2 border text-white">Status</TableHead>
@@ -180,6 +184,10 @@ export default function AdminDashboardBookings() {
                                     <div className="grid gap-2 mb-5">
                                       <Label className="block text-gray-700">Uang yang Sudah Terbayarkan</Label>
                                       <Input type="number" ref={amountRef} />
+                                    </div>
+                                    <div className="grid gap-2 mb-5">
+                                      <Label className="block text-gray-700">Tambah Uang Denda</Label>
+                                      <Input type="number" ref={dendaRef} />
                                     </div>
                                     <Label className="block text-gray-700">Status</Label>
                                     <Select onValueChange={(value) => setPaymentStatus(value)} required>
@@ -242,6 +250,7 @@ export default function AdminDashboardBookings() {
                       <TableCell className="px-3 py-2 border">{booking.end_time}</TableCell>
                       <TableCell className="px-3 py-2 border">{formatRupiah(booking.total_price)}</TableCell>
                       <TableCell className="px-3 py-2 border">{formatRupiah(booking.amount)}</TableCell>
+                      <TableCell className="px-3 py-2 border">{formatRupiah(booking.denda)}</TableCell>
                       <TableCell className="px-3 py-2 border">{booking.payment_method}</TableCell>
                       <TableCell className="px-3 py-2 border">
                         <img src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${booking.image}`} alt="" width={1000} height={1000} className="mx-auto w-20 h-fit rounded-lg" />
